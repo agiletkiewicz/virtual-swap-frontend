@@ -17,7 +17,13 @@ function test() {
 
 function createFormHandler(event) {
   event.preventDefault();
-  console.log(event);
+  const nameInput = document.querySelector("#input-name").value;
+  const rulesInput = document.querySelector("#input-rules").value;
+  postFetch(nameInput, rulesInput);
+}
+
+function postFetch(name, rules) {
+  console.log(name, rules);
 }
 
 
