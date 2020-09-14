@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   test ();
+
+  const createEventForm = document.getElementById('create-event-form');
+
+  createEventForm.addEventListener("submit", (event) => createFormHandler(event));
 })
 
 
@@ -9,6 +13,11 @@ function test() {
   fetch(`${BACKEND_URL}/events`)
   .then(response => response.json())
   .then(parsedResponse => console.log(parsedResponse));
+}
+
+function createFormHandler(event) {
+  event.preventDefault();
+  console.log(event);
 }
 
 
