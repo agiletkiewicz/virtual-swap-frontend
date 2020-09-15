@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 
-const BACKEND_URL = 'http://localhost:3000/api/v1';
 const createEventForm = document.getElementById('create-event-form');
 const viewEventForm = document.getElementById('view-event-form');
 
@@ -61,6 +60,7 @@ function createEventFetch(name, rules, pin) {
 
 function renderEvent(event) { 
   const eventData = event.data.attributes;
+  const eventId = event.data.id
 
   const header = document.createElement("h1");
   header.innerText = eventData.name;
@@ -72,6 +72,13 @@ function renderEvent(event) {
   const eventContainer = document.querySelector("#event-container");
   eventContainer.appendChild(header);
   eventContainer.appendChild(subheader);
+
+  renderUsers(eventId);
 }
 
-
+function renderUsers(eventId) {
+  new Adapter(`/events/${eventId}/users`).getRequest()
+  .then(response => {
+    console.log(response);
+  })
+}
