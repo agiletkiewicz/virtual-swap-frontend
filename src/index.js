@@ -12,8 +12,7 @@ const createEventForm = document.getElementById('create-event-form');
 const viewEventForm = document.getElementById('view-event-form');
 
 function fetchEvents() {
-  fetch(`${BACKEND_URL}/events`)
-  .then(response => response.json())
+  new Adapter('/events').getRequest()
   .then(parsedResponse => {
     addEventsToForm(parsedResponse)
   });
@@ -35,15 +34,9 @@ function viewFormHandler(event) {
 }
 
 function accessEvent(id, pin) {
-  fetch(`${BACKEND_URL}/login`, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      id: id,
-      pin: pin,
-    })
-  })
-  .then(response => response.json())
+  const bodyData = {id, pin}
+
+  new Adapter('/login').postRequest(bodyData)
   .then(event => {
     renderEvent(event);
   })
@@ -58,16 +51,9 @@ function createFormHandler(event) {
 }
 
 function createEventFetch(name, rules, pin) {
-  fetch(`${BACKEND_URL}/events`, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      name: name, 
-      rules: rules,
-      pin: pin,
-    })
-  })
-  .then(response => response.json())
+  const bodyData = {name, rules, pin}
+
+  new Adapter('/events').postRequest(bodyData)
   .then(event => {
     renderEvent(event);
   })
