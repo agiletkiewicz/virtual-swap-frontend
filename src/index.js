@@ -11,6 +11,7 @@ const createEventForm = document.getElementById('create-event-form');
 const viewEventForm = document.getElementById('view-event-form');
 const eventContainer = document.querySelector("#event-container");
 const userForm = document.querySelector("#select-user-form");
+let currentUser
 
 function fetchEvents() {
   new Adapter('/events').getRequest()
@@ -108,4 +109,18 @@ function renderUserSelectForm() {
 
   userForm.appendChild(label).appendChild(select);
   userForm.appendChild(submit);
+
+  userForm.addEventListener("click", (event) => setCurrentUser(event));
+}
+
+function setCurrentUser(event) {
+  event.preventDefault();
+  const userId = document.querySelector('#users').value;
+  currentUser = User.all.find( user => user.id === userId );
+
+  renderItems();
+}
+
+function renderItems() {
+  userForm.style.display = 'none';
 }
