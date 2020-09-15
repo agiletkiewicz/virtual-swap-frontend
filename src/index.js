@@ -78,7 +78,10 @@ function renderEvent(event) {
 
 function renderUsers(eventId) {
   new Adapter(`/events/${eventId}/users`).getRequest()
-  .then(response => {
-    console.log(response);
+  .then(users => {
+    for (const element of users.data) {
+      new User(element)
+    }
   })
+  console.log(User.all)
 }
