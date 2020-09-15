@@ -14,7 +14,9 @@ const viewEventForm = document.getElementById('view-event-form');
 function fetchEvents() {
   fetch(`${BACKEND_URL}/events`)
   .then(response => response.json())
-  .then(parsedResponse => addEventsToForm(parsedResponse));
+  .then(parsedResponse => {
+    addEventsToForm(parsedResponse)
+  });
 }
 
 function addEventsToForm(allEvents) {
@@ -27,32 +29,42 @@ function addEventsToForm(allEvents) {
 
 function viewFormHandler(event) {
   event.preventDefault();
-  // const nameInput = document.querySelector("#input-name").value;
-  // createEventFetch(nameInput, rulesInput);
   const eventId = parseInt(document.querySelector('#events').value);
-  fetchEvent(eventId);
+  const eventPin = parseInt(document.querySelector('#pin').value);
+  accessEvent(eventId, eventPin);
 }
 
-function fetchEvent(eventId) {
-  fetch(`${BACKEND_URL}/events/${eventId}`)
+function accessEvent(id, pin) {
+  fetch(`${BACKEND_URL}/login`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      id: id,
+      pin: pin,
+    })
+  })
   .then(response => response.json())
-  .then(parsedResponse => renderEvent(parsedResponse));
+  .then(event => {
+    renderEvent(event);
+  })
 }
 
 function createFormHandler(event) {
   event.preventDefault();
   const nameInput = document.querySelector("#input-name").value;
   const rulesInput = document.querySelector("#input-rules").value;
-  createEventFetch(nameInput, rulesInput);
+  const pinInput = document.querySelector("#input-pin").value;
+  createEventFetch(nameInput, rulesInput, pinInput);
 }
 
-function createEventFetch(name, rules) {
+function createEventFetch(name, rules, pin) {
   fetch(`${BACKEND_URL}/events`, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
       name: name, 
       rules: rules,
+      pin: pin,
     })
   })
   .then(response => response.json())

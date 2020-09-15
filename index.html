@@ -12,6 +12,8 @@
      <br><br>
      <textarea id="input-rules" rows="4" cols="40" value="" name="rules" placeholder="create some rules, spaced with commas"></textarea>
      <br><br>
+     <input id="input-pin" type="text" name="pin" placeholder="create a pin">
+     <br><br>
      <input id="create-button" type="submit" name="submit" value="Create new event">
 
    </form>
@@ -19,6 +21,8 @@
    <form id="view-event-form">
     <h3>Join an event</h3>
     <select id="events" name="events"></select> 
+    <br><br>
+    <input id="pin" type="text" name="pin" placeholder="enter the event pin">
     <br><br>
     <input id="create-button" type="submit" name="submit" value="View existing event">
    </form>
@@ -29,5 +33,7 @@
 
 
    <script type="application/javascript" src="src/index.js" charset="UTF-8"></script>
+   <script type="application/javascript" src="src/event.js" charset="UTF-8"></script>
+
   </body>
 </html>
