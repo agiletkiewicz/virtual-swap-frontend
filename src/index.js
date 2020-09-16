@@ -162,4 +162,13 @@ function userSelectFormHandler(event) {
 function renderItems() {
   userForm.style.display = 'none';
   userCreateForm.style.display = 'none';
+
+  new Adapter(`/events/${currentEventId}/items`).getRequest()
+  .then(items => {
+    for (const element of items.data) {
+      new Item(element);
+    }
+    console.log(Item.all)
+  })
+
 }
