@@ -12,6 +12,7 @@ const viewEventForm = document.getElementById('view-event-form');
 const eventContainer = document.querySelector("#event-container");
 const userForm = document.querySelector("#select-user-form");
 const userCreateForm = document.querySelector("#create-user-form");
+const formContainer = document.querySelector("#form-container");
 let currentUser
 let currentEventId
 
@@ -167,9 +168,25 @@ function renderItems() {
   .then(items => {
     for (const element of items.data) {
       const item = new Item(element);
-      item.createItemCard();
+      item.renderItemCard();
     }
+    renderItemCreateForm()
     console.log(Item.all)
   })
 
+}
+
+function renderItemCreateForm() {
+  formContainer.innerHTML += `
+    <form id="create-item-form">
+      <h3>Create a new item</h3>
+      <input id="input-title" type="text" name="title" placeholder="name your event">
+      <br><br>
+      <input id="input-size" type="text" name="size" placeholder="name your event">
+      <br><br>
+      <input id="input-notes" type="text" name="notes" placeholder="create a pin">
+      <br><br>
+      <input id="create-button" type="submit" name="submit" value="Add new item"></input>
+    </form>
+  `
 }

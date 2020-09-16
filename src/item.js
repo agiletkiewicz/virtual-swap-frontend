@@ -13,7 +13,7 @@ class Item {
         return User.findById(this.userId).name
     }
 
-    createItemCard() {
+    renderItemCard() {
         const cardDiv = document.createElement('div');
         cardDiv.id = "card-div";
         cardDiv.dataset.id = this.id;
