@@ -1,17 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
   fetchEvents();
 
-  createEventForm.addEventListener("submit", (event) => createFormHandler(event));
-  viewEventForm.addEventListener("submit", (event) => viewFormHandler(event));
+  document.getElementById('create-event-form').addEventListener("submit", (event) => createEventFormHandler(event));
+  document.getElementById('view-event-form').addEventListener("submit", (event) => viewEventFormHandler(event));
 
 })
 
-
-const createEventForm = document.getElementById('create-event-form');
-const viewEventForm = document.getElementById('view-event-form');
 const eventContainer = document.querySelector("#event-container");
-const userForm = document.querySelector("#select-user-form");
-const userCreateForm = document.querySelector("#create-user-form");
 const formContainer = document.querySelector("#form-container");
 let currentUser
 let currentEventId
@@ -31,7 +26,7 @@ function addEventsToForm(allEvents) {
   } 
 }
 
-function viewFormHandler(event) {
+function viewEventFormHandler(event) {
   event.preventDefault();
   const eventId = parseInt(document.querySelector('#events').value);
   const eventPin = parseInt(document.querySelector('#pin').value);
@@ -50,7 +45,7 @@ function accessEvent(id, pin) {
   })
 }
 
-function createFormHandler(event) {
+function createEventFormHandler(event) {
   event.preventDefault();
   const nameInput = document.querySelector("#input-name").value;
   const rulesInput = document.querySelector("#input-rules").value;
@@ -78,8 +73,8 @@ function renderEvent(event) {
   const subheader = document.createElement("h2");
   subheader.innerText = eventData.rules;
 
-  createEventForm.style.display = 'none';
-  viewEventForm.style.display = 'none';
+  document.getElementById('create-event-form').style.display = 'none';
+  document.getElementById('view-event-form').style.display = 'none';
   eventContainer.appendChild(header);
   eventContainer.appendChild(subheader);
 
@@ -97,6 +92,9 @@ function renderEvent(event) {
 
 
 function renderUserSelectForm() {
+  const createForm = document.createElement("form");
+  createForm.id = "select-user-form";
+
   const select = document.createElement("select");
   select.name = "users";
   select.id = "users";
@@ -109,13 +107,17 @@ function renderUserSelectForm() {
   submit.setAttribute('type',"submit");
   submit.setAttribute('value',"Submit");
 
-  userForm.appendChild(label).appendChild(select);
-  userForm.appendChild(submit);
+  createForm.appendChild(label).appendChild(select);
+  createForm.appendChild(submit);
 
-  userForm.addEventListener("submit", (event) => userSelectFormHandler(event));
+  createForm.addEventListener("submit", (event) => userSelectFormHandler(event));
+
+  formContainer.appendChild(createForm);
 }
 
 function renderUserCreateForm() {
+  const createForm = document.createElement("form");
+  createForm.id = "create-user-form";
 
   const label = document.createElement("label");
   label.innerHTML = "Create a new user:"
@@ -130,10 +132,12 @@ function renderUserCreateForm() {
   submit.setAttribute('type',"submit");
   submit.setAttribute('value',"Submit");
 
-  userCreateForm.appendChild(label).appendChild(input);
-  userCreateForm.appendChild(submit);
+  createForm.appendChild(label).appendChild(input);
+  createForm.appendChild(submit);
 
-  userCreateForm.addEventListener("submit", (event) => userCreateFormHandler(event));
+  createForm.addEventListener("submit", (event) => userCreateFormHandler(event));
+
+  formContainer.appendChild(createForm);
 }
 
 function userCreateFormHandler(event) {
@@ -148,8 +152,8 @@ function createUserFetch(name) {
   new Adapter(`/users`).postRequest(bodyData)
   .then(event => {
     currentUser = new User(event.data);
-    userForm.style.display = 'none';
-    userCreateForm.style.display = 'none';
+    document.querySelector("#select-user-form").style.display = 'none';
+    document.querySelector("#create-user-form").style.display = 'none';
     renderItemCreateForm();
   })
 }
@@ -158,15 +162,15 @@ function userSelectFormHandler(event) {
   event.preventDefault();
   const userId = parseInt(document.querySelector('#users').value);
   currentUser = User.findById(userId);
-  userForm.style.display = 'none';
-  userCreateForm.style.display = 'none';
+  document.querySelector("#select-user-form").style.display = 'none';
+  document.querySelector("#create-user-form").style.display = 'none';
   renderItemCreateForm();
 }
 
 
 function renderItemCreateForm() {
   const createForm = document.createElement("form");
-  createForm.id = "creat-item-form";
+  createForm.id = "create-item-form";
   createForm.innerHTML = `
       <h3>Create a new item</h3>
       <input id="input-title" type="text" name="title" placeholder="title">
