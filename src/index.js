@@ -38,7 +38,6 @@ function accessEvent(id, pin) {
 
   new Adapter(`/login`).postRequest(bodyData)
   .then(event => {
-    debugger
     renderUserSelectForm();
     renderUserCreateForm();
     renderEvent(event);
@@ -80,7 +79,7 @@ function renderEvent(event) {
 
   for(const element of event.included) {
     if (element.type === "item") {
-      const newItem = new Item(element);
+      const newItem = new ItemFromDb(element);
       newItem.renderItemCard();
     } else if (element.type === "user") {
       const newUser = new User(element);
@@ -198,7 +197,8 @@ function createItemFetch(title, size, notes) {
 
   new Adapter(`/items`).postRequest(bodyData)
   .then(event => {
-    const item = new Item(event);
+    debugger
+    const item = new ItemFromForm(event);
     item.renderItemCard();
   })
 }
