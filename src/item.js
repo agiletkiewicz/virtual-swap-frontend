@@ -5,13 +5,13 @@ class Item {
         this.title = data.attributes.title,
         this.size = data.attributes.size,
         this.notes = data.attributes.notes,
-        this.userId = data.attributes.user_id,
+        this.userId = data.relationships.user.data.id,
         Item.all.push(this)
     }
 
-    findUser() {
-        return User.findById(this.userId).name
-    }
+    // findUser() {
+    //     return User.findById(this.userId).name
+    // }
 
     renderItemCard() {
         const cardDiv = document.createElement('div');
@@ -21,7 +21,7 @@ class Item {
             <h3> ${this.title} </h3>
             <p> size: ${this.size} </p>
             <p> notes: <br> ${this.notes} </p>
-            <p> given by: ${this.findUser()} </p>
+            
         `;
         document.querySelector("#item-container").appendChild(cardDiv);
     }

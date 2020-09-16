@@ -41,8 +41,11 @@ function viewFormHandler(event) {
 function accessEvent(id, pin) {
   const bodyData = {id, pin}
 
-  new Adapter('/login').postRequest(bodyData)
+  new Adapter(`/login`).postRequest(bodyData)
   .then(event => {
+    debugger
+    renderUserSelectForm();
+    renderUserCreateForm();
     renderEvent(event);
   })
 }
@@ -60,6 +63,8 @@ function createEventFetch(name, rules, pin) {
 
   new Adapter('/events').postRequest(bodyData)
   .then(event => {
+    renderUserSelectForm();
+    renderUserCreateForm();
     renderEvent(event);
   })
 }
@@ -78,28 +83,23 @@ function renderEvent(event) {
   eventContainer.appendChild(header);
   eventContainer.appendChild(subheader);
 
-  getUsers();
+  for(const element of event.included) {
+    if (element.type === "item") {
+      const newItem = new Item(element);
+      newItem.renderItemCard();
+    } else if (element.type === "user") {
+      const newUser = new User(element);
+      let newOption = new Option(newUser.name, newUser.id);
+      document.querySelector("#users").appendChild(newOption,undefined);
+    }
+  }
 }
 
-function getUsers() {
-  new Adapter(`/events/${currentEventId}/users`).getRequest()
-  .then(users => {
-    for (const element of users.data) {
-      new User(element)
-    }
-    renderUserSelectForm()
-    renderUserCreateForm()
-  })
-}
 
 function renderUserSelectForm() {
   const select = document.createElement("select");
   select.name = "users";
-  select.id = "users"
-  User.all.forEach( (user) => {
-    let newOption = new Option(user.name, user.id);
-    select.appendChild(newOption,undefined);
-  }) 
+  select.id = "users";
 
   const label = document.createElement("label");
   label.innerHTML = "Choose an existing user: "
@@ -143,50 +143,59 @@ function userCreateFormHandler(event) {
 }
 
 function createUserFetch(name) {
-  const bodyData = {name}
+  const bodyData = {name, event_id: currentEventId}
 
-  new Adapter(`/events/${currentEventId}/users`).postRequest(bodyData)
+  new Adapter(`/users`).postRequest(bodyData)
   .then(event => {
     currentUser = new User(event.data);
-    console.log(currentUser);
+    userForm.style.display = 'none';
+    userCreateForm.style.display = 'none';
+    renderItemCreateForm();
   })
 }
 
 function userSelectFormHandler(event) {
   event.preventDefault();
-  const userId = document.querySelector('#users').value;
-  currentUser = User.all.find( user => user.id === userId );
-
-  renderItems();
-}
-
-function renderItems() {
+  const userId = parseInt(document.querySelector('#users').value);
+  currentUser = User.findById(userId);
   userForm.style.display = 'none';
   userCreateForm.style.display = 'none';
-
-  new Adapter(`/events/${currentEventId}/items`).getRequest()
-  .then(items => {
-    for (const element of items.data) {
-      const item = new Item(element);
-      item.renderItemCard();
-    }
-    renderItemCreateForm()
-    console.log(Item.all)
-  })
-
+  renderItemCreateForm();
 }
+
 
 function renderItemCreateForm() {
-  formContainer.innerHTML += `
-    <form id="create-item-form">
+  const createForm = document.createElement("form");
+  createForm.id = "creat-item-form";
+  createForm.innerHTML = `
       <h3>Create a new item</h3>
-      <input id="input-title" type="text" name="title" placeholder="name your event">
+      <input id="input-title" type="text" name="title" placeholder="title">
       <br><br>
-      <input id="input-size" type="text" name="size" placeholder="name your event">
+      <input id="input-size" type="text" name="size" placeholder="size">
       <br><br>
-      <input id="input-notes" type="text" name="notes" placeholder="create a pin">
+      <input id="input-notes" type="text" name="notes" placeholder="notes">
       <br><br>
       <input id="create-button" type="submit" name="submit" value="Add new item"></input>
-    </form>
-  `
+  `;
+  createForm.addEventListener('submit', event => createItemFormHandler(event))
+  formContainer.appendChild(createForm);
 }
+
+function createItemFormHandler(event) {
+  event.preventDefault();
+  const titleInput = document.querySelector("#input-title").value;
+  const sizeInput = document.querySelector("#input-size").value;
+  const notesInput = document.querySelector("#input-notes").value;
+  createItemFetch(titleInput, sizeInput, notesInput);
+}
+
+function createItemFetch(title, size, notes) {
+  const bodyData = {title, size, notes, user_id: currentUser.id}
+
+  new Adapter(`/items`).postRequest(bodyData)
+  .then(event => {
+    const item = new Item(event);
+    item.renderItemCard();
+  })
+}
+
