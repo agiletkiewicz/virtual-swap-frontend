@@ -166,7 +166,8 @@ function renderItems() {
   new Adapter(`/events/${currentEventId}/items`).getRequest()
   .then(items => {
     for (const element of items.data) {
-      new Item(element);
+      const item = new Item(element);
+      item.createItemCard();
     }
     console.log(Item.all)
   })
