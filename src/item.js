@@ -33,6 +33,15 @@ class Item {
 
         if (this.userId === User._current.id) {
             thisCard.querySelector("#giver").innerHTML = "My item";
+            const deleteForm = document.createElement("form");
+            deleteForm.id = "delete-item-form";
+            deleteForm.innerHTML = `
+                <input type="hidden" id="item-id" value="${this.id}">
+                <input type="submit" value="Delete this item" id="delete-item-button">
+            `; 
+
+            deleteForm.addEventListener('submit', (event) => deleteItemFormHandler(event)),
+            thisCard.appendChild(deleteForm);
 
         } else if (!itemTake){
             const takeForm = document.createElement("form");

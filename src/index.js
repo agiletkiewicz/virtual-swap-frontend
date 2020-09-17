@@ -227,7 +227,6 @@ function editTakeFormHandler(event) {
   const bodyData = {item_id, user_id}
   
   if (event.target.querySelector("#take-button").value === "Taken!") {
-    console.log("test");
     const take_id = parseInt(event.target.querySelector("#take-id").value);
     
       fetch(`http://localhost:3000/api/v1/takes/${take_id}`, {
@@ -248,4 +247,19 @@ function editTakeFormHandler(event) {
       event.target.querySelector("#take-id").value = response.id;
     })
 }
+}
+
+function deleteItemFormHandler(event) {
+  const item_id = parseInt(event.target.querySelector("#item-id").value);
+
+  fetch(`http://localhost:3000/api/v1/items/${item_id}`, {
+    method: "DELETE",
+    headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    }
+    });
+
+    event.target.parentElement.remove();
+    event.target.remove();
 }
