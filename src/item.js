@@ -30,27 +30,33 @@ class Item {
     addTakeToItemCard() {
         const itemTake = Take.all.find( take => take.itemId === this.id)
         const thisCard = document.querySelector(`[data-id="${this.id}"]`);
+
         if (this.userId === User._current.id) {
             thisCard.querySelector("#giver").innerHTML = "My item";
+
         } else if (!itemTake){
             const takeForm = document.createElement("form");
             takeForm.id = "take-item-form";
             takeForm.innerHTML = `
-            <form id="take form">
                 <input type="hidden" id="item_id" value="${this.id}">
                 <input type="hidden" id="user_id" value="${User._current.id}">
-                <input type="submit" value="Take this item">
-            </form>
+                <input type="submit" value="Take item" id="take-button">
             `; 
+
             takeForm.addEventListener('submit', (event) => editTakeFormHandler(event)),
             thisCard.appendChild(takeForm);
+
         } else if (itemTake.userId === User._current.id) {
-            const button = document.createElement('input');
-            button.dataset.id = this.id;
-            button.setAttribute('type', 'submit');
-            button.setAttribute('value', 'Item taken!');
-            button.addEventListener('submit', (event) => editTakeFormHandler(event)),
-            thisCard.appendChild(button);
+            const takeForm = document.createElement("form");
+            takeForm.id = "take-item-form";
+            takeForm.innerHTML = `
+                <input type="hidden" id="item_id" value="${this.id}">
+                <input type="hidden" id="user_id" value="${User._current.id}">
+                <input type="submit" value="Item taken!" id="take-button">
+            `; 
+
+            takeForm.addEventListener('submit', (event) => destroyTakeFormHandler(event)),
+            thisCard.appendChild(takeForm);
         } else {
             const newP = document.createElement('p');
             newP.innerText = `Item taken by ${User.findById(itemTake.userId).name}`;

@@ -219,18 +219,20 @@ function createItemFetch(title, size, notes) {
 }
 
 function editTakeFormHandler(event) {
-  debugger
   event.preventDefault();
-  const itemId = parseInt(document.querySelector("#item_id").value);
-  const userId = parseInt(document.querySelector("#user_id").value);
-  createTakeFetch(itemId, userId)  
-}
+  debugger
+  const item_id = parseInt(event.target.querySelector("#item_id").value);
+  const user_id = parseInt(event.target.querySelector("#user_id").value);
 
-function createTakeFetch(item_id, user_id) {
   const bodyData = {item_id, user_id}
-
-  new Adapter('/takes').postRequest(bodyData)
-  .then(event => {
-    console.log(event)
-  })
+  
+  if (event.target.querySelector("#take-button").value === "Taken!") {
+    console.log("test");
+  } else {
+    new Adapter('/takes').postRequest(bodyData)
+    .then(response => {
+      console.log(response);
+      event.target.querySelector("#take-button").value = "Taken!";
+    })
+}
 }
