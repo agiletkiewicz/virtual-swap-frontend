@@ -219,6 +219,18 @@ function createItemFetch(title, size, notes) {
 }
 
 function editTakeFormHandler(event) {
+  debugger
   event.preventDefault();
+  const itemId = parseInt(document.querySelector("#item_id").value);
+  const userId = parseInt(document.querySelector("#user_id").value);
+  createTakeFetch(itemId, userId)  
 }
 
+function createTakeFetch(item_id, user_id) {
+  const bodyData = {item_id, user_id}
+
+  new Adapter('/takes').postRequest(bodyData)
+  .then(event => {
+    console.log(event)
+  })
+}
