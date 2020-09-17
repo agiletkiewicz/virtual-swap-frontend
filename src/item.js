@@ -34,7 +34,7 @@ class ItemFromDb extends Item {
         this.title = data.attributes.title,
         this.size = data.attributes.size,
         this.notes = data.attributes.notes,
-        this.userId = parseInt(data.relationships.user.data.id)  
+        this.userId = parseInt(data.user_id)  
     }
 
     
