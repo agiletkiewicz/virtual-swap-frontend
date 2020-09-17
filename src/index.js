@@ -40,7 +40,7 @@ function accessEvent(id, pin) {
     renderUserSelectForm();
     renderUserCreateForm();
     renderEvent(event);
-    // addUsers();
+    addUsers();
   })
 }
 

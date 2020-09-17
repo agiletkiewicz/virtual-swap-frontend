@@ -22,8 +22,8 @@ class Item {
 
     addUserToItemCard() {
         const newP = document.createElement('p');
-        newP.innerText = this.findUser().name;
-        document.querySelector("#card-div").appendChild(newP);
+        newP.innerText = `given by: ${this.findUser()}`;
+        document.querySelector(`[data-id="${this.id}"]`).appendChild(newP);
     }
 
 }
