@@ -230,7 +230,7 @@ function editTakeFormHandler(event) {
     console.log("test");
     const take_id = parseInt(event.target.querySelector("#take-id").value);
     
-      fetch(`http://localhost:3000/takes/${take_id}`, {
+      fetch(`http://localhost:3000/api/v1/takes/${take_id}`, {
       method: "DELETE",
       headers: {
           "Content-Type": "application/json",
