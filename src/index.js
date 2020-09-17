@@ -91,6 +91,9 @@ function renderEvent(event) {
       const newUser = new User(element);
       let newOption = new Option(newUser.name, newUser.id);
       document.querySelector("#users").appendChild(newOption,undefined);
+    } else if (element.type === "take") {
+      debugger
+      new Take(element);
     }
   }
 }
