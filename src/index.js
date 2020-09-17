@@ -92,7 +92,6 @@ function renderEvent(event) {
       let newOption = new Option(newUser.name, newUser.id);
       document.querySelector("#users").appendChild(newOption,undefined);
     } else if (element.type === "take") {
-      debugger
       new Take(element);
     }
   }
@@ -173,6 +172,13 @@ function userSelectFormHandler(event) {
   document.querySelector("#select-user-form").style.display = 'none';
   document.querySelector("#create-user-form").style.display = 'none';
   renderItemCreateForm();
+  addTakeButtons();
+}
+
+function addTakeButtons() {
+  for (const element of Item.all) {
+    element.addTakeToItemCard();
+  }
 }
 
 
@@ -210,5 +216,9 @@ function createItemFetch(title, size, notes) {
     const item = new ItemFromForm(event.id, event);
     item.renderItemCard();
   })
+}
+
+function editTakeFormHandler(event) {
+  event.preventDefault();
 }
 

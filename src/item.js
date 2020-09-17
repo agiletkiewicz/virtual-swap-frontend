@@ -26,6 +26,15 @@ class Item {
         document.querySelector(`[data-id="${this.id}"]`).appendChild(newP);
     }
 
+    addTakeToItemCard() {
+        const button = document.createElement('input');
+        button.dataset.id = this.id;
+        button.setAttribute('type', 'submit');
+        button.setAttribute('value', 'Take this item');
+        button.addEventListener('submit', (event) => editTakeFormHandler(event)),
+        document.querySelector(`[data-id="${this.id}"]`).appendChild(button);
+    }
+
 }
 
 class ItemFromDb extends Item {
