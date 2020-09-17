@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const eventContainer = document.querySelector("#event-container");
 const formContainer = document.querySelector("#form-container");
-let currentUser
 let currentEventId
 
 function fetchEvents() {
@@ -41,7 +40,14 @@ function accessEvent(id, pin) {
     renderUserSelectForm();
     renderUserCreateForm();
     renderEvent(event);
+    // addUsers();
   })
+}
+
+function addUsers() {
+  for (const element of Item.all) {
+    element.addUserToItemCard();
+  }
 }
 
 function createEventFormHandler(event) {
@@ -79,7 +85,7 @@ function renderEvent(event) {
 
   for(const element of event.included) {
     if (element.type === "item") {
-      const newItem = new ItemFromDb(element);
+      const newItem = new ItemFromDb(element.id, element);
       newItem.renderItemCard();
     } else if (element.type === "user") {
       const newUser = new User(element);
@@ -150,7 +156,7 @@ function createUserFetch(name) {
 
   new Adapter(`/users`).postRequest(bodyData)
   .then(event => {
-    currentUser = new User(event.data);
+    User._current = new User(event.data);
     document.querySelector("#select-user-form").style.display = 'none';
     document.querySelector("#create-user-form").style.display = 'none';
     renderItemCreateForm();
@@ -160,7 +166,7 @@ function createUserFetch(name) {
 function userSelectFormHandler(event) {
   event.preventDefault();
   const userId = parseInt(document.querySelector('#users').value);
-  currentUser = User.findById(userId);
+  User._current = User.findById(userId);
   document.querySelector("#select-user-form").style.display = 'none';
   document.querySelector("#create-user-form").style.display = 'none';
   renderItemCreateForm();
@@ -193,12 +199,12 @@ function createItemFormHandler(event) {
 }
 
 function createItemFetch(title, size, notes) {
-  const bodyData = {title, size, notes, user_id: currentUser.id}
+  const bodyData = {title, size, notes, user_id: User._current.id}
 
   new Adapter(`/items`).postRequest(bodyData)
   .then(event => {
     debugger
-    const item = new ItemFromForm(event);
+    const item = new ItemFromForm(event.id, event);
     item.renderItemCard();
   })
 }

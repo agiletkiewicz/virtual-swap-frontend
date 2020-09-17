@@ -10,6 +10,11 @@ class User {
         return this.all.find( user => user.id === id );
     }
 
+    static setCurrent(userId) {
+        this._current = this.findById(userId);
+    }
+
 }
 
 User.all = []
+User._current
