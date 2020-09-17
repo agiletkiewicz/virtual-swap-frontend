@@ -51,11 +51,12 @@ class Item {
             takeForm.id = "take-item-form";
             takeForm.innerHTML = `
                 <input type="hidden" id="item_id" value="${this.id}">
+                <input type="hidden" id="take_id" value="${itemTake.id}">
                 <input type="hidden" id="user_id" value="${User._current.id}">
-                <input type="submit" value="Item taken!" id="take-button">
+                <input type="submit" value="Taken!" id="take-button">
             `; 
 
-            takeForm.addEventListener('submit', (event) => destroyTakeFormHandler(event)),
+            takeForm.addEventListener('submit', (event) => editTakeFormHandler(event)),
             thisCard.appendChild(takeForm);
         } else {
             const newP = document.createElement('p');

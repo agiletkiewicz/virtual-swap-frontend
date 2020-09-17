@@ -228,6 +228,17 @@ function editTakeFormHandler(event) {
   
   if (event.target.querySelector("#take-button").value === "Taken!") {
     console.log("test");
+    const take_id = parseInt(event.target.querySelector("#take_id").value);
+    
+      fetch(`http://localhost:3000/takes/${take_id}`, {
+      method: "DELETE",
+      headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+      }
+      })
+      event.target.querySelector("#take-button").value = "Take item";
+  
   } else {
     new Adapter('/takes').postRequest(bodyData)
     .then(response => {
