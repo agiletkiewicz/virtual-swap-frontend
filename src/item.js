@@ -38,8 +38,9 @@ class Item {
             const takeForm = document.createElement("form");
             takeForm.id = "take-item-form";
             takeForm.innerHTML = `
-                <input type="hidden" id="item_id" value="${this.id}">
-                <input type="hidden" id="user_id" value="${User._current.id}">
+                <input type="hidden" id="item-id" value="${this.id}">
+                <input type="hidden" id="take-id" value="0">
+                <input type="hidden" id="user-id" value="${User._current.id}">
                 <input type="submit" value="Take item" id="take-button">
             `; 
 
@@ -50,9 +51,9 @@ class Item {
             const takeForm = document.createElement("form");
             takeForm.id = "take-item-form";
             takeForm.innerHTML = `
-                <input type="hidden" id="item_id" value="${this.id}">
-                <input type="hidden" id="take_id" value="${itemTake.id}">
-                <input type="hidden" id="user_id" value="${User._current.id}">
+                <input type="hidden" id="item-id" value="${this.id}">
+                <input type="hidden" id="take-id" value="${itemTake.id}">
+                <input type="hidden" id="user-id" value="${User._current.id}">
                 <input type="submit" value="Taken!" id="take-button">
             `; 
 

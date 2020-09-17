@@ -221,14 +221,14 @@ function createItemFetch(title, size, notes) {
 function editTakeFormHandler(event) {
   event.preventDefault();
   debugger
-  const item_id = parseInt(event.target.querySelector("#item_id").value);
-  const user_id = parseInt(event.target.querySelector("#user_id").value);
+  const item_id = parseInt(event.target.querySelector("#item-id").value);
+  const user_id = parseInt(event.target.querySelector("#user-id").value);
 
   const bodyData = {item_id, user_id}
   
   if (event.target.querySelector("#take-button").value === "Taken!") {
     console.log("test");
-    const take_id = parseInt(event.target.querySelector("#take_id").value);
+    const take_id = parseInt(event.target.querySelector("#take-id").value);
     
       fetch(`http://localhost:3000/takes/${take_id}`, {
       method: "DELETE",
@@ -238,12 +238,14 @@ function editTakeFormHandler(event) {
       }
       })
       event.target.querySelector("#take-button").value = "Take item";
+      
   
   } else {
     new Adapter('/takes').postRequest(bodyData)
     .then(response => {
       console.log(response);
       event.target.querySelector("#take-button").value = "Taken!";
+      event.target.querySelector("#take-id").value = response.id;
     })
 }
 }
