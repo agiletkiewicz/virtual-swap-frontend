@@ -8,6 +8,11 @@ class Item {
         return User.findById(this.userId).name
     }
 
+    static deleteById(id) {
+        const index = this.all.findIndex( item => item.id === id );
+        Item.all.splice(index, 1);
+    }
+
     renderItemCard() {  
         const cardDiv = document.createElement('div');
         cardDiv.id = "card-div";

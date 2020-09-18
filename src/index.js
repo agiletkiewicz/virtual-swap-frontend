@@ -63,10 +63,16 @@ function createEventFetch(name, rules, pin) {
 
   new Adapter('/events').postRequest(bodyData)
   .then(event => {
+    if (event.error) {
+      debugger
+      console.log(event.error)
+    } else {
     renderUserSelectForm();
     renderUserCreateForm();
     renderEvent(event);
+    }
   })
+  .catch(error => console.log(error))
 }
 
 function renderEvent(event) { 
@@ -264,4 +270,5 @@ function deleteItemFormHandler(event) {
 
     event.target.parentElement.remove();
     event.target.remove();
+    Item.deleteById(item_id);
 }
