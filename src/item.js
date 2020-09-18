@@ -118,7 +118,7 @@ class Item {
             deleteForm.id = "delete-item-form";
             deleteForm.innerHTML = `
                 <input type="hidden" id="item-id" value="${this.id}">
-                <input class="btn btn-sm btn-outline-secondary" type="submit" value="Delete this item" id="delete-item-button">
+                <input class="btn btn-sm btn-outline-secondary" type="submit" value="Delete" id="delete-item-button">
             `; 
 
             deleteForm.addEventListener('submit', (event) => deleteItemFormHandler(event)),
@@ -131,7 +131,7 @@ class Item {
                 <input type="hidden" id="item-id" value="${this.id}">
                 <input type="hidden" id="take-id" value="0">
                 <input type="hidden" id="user-id" value="${User._current.id}">
-                <input class="btn btn-sm btn-outline-secondary" type="submit" value="Take item" id="take-button">
+                <input class="btn btn-sm btn-outline-secondary" type="submit" value="Take" id="take-button">
             `; 
 
             takeForm.addEventListener('submit', (event) => editTakeFormHandler(event)),
@@ -187,12 +187,21 @@ class ItemFromForm extends Item {
         const cardDiv = document.createElement('div');
         cardDiv.id = "card-div";
         cardDiv.dataset.id = this.id;
+        cardDiv.classList.add("col-md-4");
+
         cardDiv.innerHTML += `
-            <h3> ${this.title} </h3>
-            <img src="${this.image_url}" width=20% height=auto>
-            <p> size: ${this.size} </p>
-            <p> notes: <br> ${this.notes} </p>
-            <p id="giver"> My item </p>
+            <div class="card mb-4 shadow-sm">
+                <img src="${this.image_url}" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class ="card-title">${this.title}</h5>
+                <p class="card-text">size: ${this.size} <br> notes: ${this.notes}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                    </div>
+                    <small id="giver" class="text-muted">My item</small>
+                </div>
+                </div>
+            </div>
         `;
         document.querySelector("#item-container").appendChild(cardDiv);
 
@@ -200,11 +209,12 @@ class ItemFromForm extends Item {
         deleteForm.id = "delete-item-form";
         deleteForm.innerHTML = `
             <input type="hidden" id="item-id" value="${this.id}">
-            <input type="submit" value="Delete this item" id="delete-item-button">
+            <input class="btn btn-sm btn-outline-secondary" type="submit" value="Delete" id="delete-item-button">
         `; 
 
-        deleteForm.addEventListener('submit', (event) => deleteItemFormHandler(event)),
-        cardDiv.appendChild(deleteForm);
+        deleteForm.addEventListener('submit', (event) => deleteItemFormHandler(event));
+        const button = cardDiv.querySelector(".btn-group");
+        button.appendChild(deleteForm);
     }
 
 }

@@ -311,6 +311,5 @@ function deleteItemFormHandler(event) {
     });
 
     event.target.parentElement.remove();
-    event.target.remove();
     Item.deleteById(item_id);
 }
