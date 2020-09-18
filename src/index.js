@@ -104,53 +104,89 @@ function renderEvent(event) {
 }
 
 
+// function renderUserSelectForm() {
+//   const createForm = document.createElement("form");
+//   createForm.id = "select-user-form";
+
+//   const select = document.createElement("select");
+//   select.name = "users";
+//   select.id = "users";
+
+//   const label = document.createElement("label");
+//   label.innerHTML = "Choose an existing user: "
+//   label.htmlFor = "users";
+
+//   const submit = document.createElement("input");
+//   submit.setAttribute('type',"submit");
+//   submit.setAttribute('value',"Submit");
+
+//   createForm.appendChild(label).appendChild(select);
+//   createForm.appendChild(submit);
+
+//   createForm.addEventListener("submit", (event) => userSelectFormHandler(event));
+
+//   formContainer.appendChild(createForm);
+// }
+
 function renderUserSelectForm() {
   const createForm = document.createElement("form");
   createForm.id = "select-user-form";
-
-  const select = document.createElement("select");
-  select.name = "users";
-  select.id = "users";
-
-  const label = document.createElement("label");
-  label.innerHTML = "Choose an existing user: "
-  label.htmlFor = "users";
-
-  const submit = document.createElement("input");
-  submit.setAttribute('type',"submit");
-  submit.setAttribute('value',"Submit");
-
-  createForm.appendChild(label).appendChild(select);
-  createForm.appendChild(submit);
+  createForm.classList.add("col");
+  createForm.innerHTML = `
+    <div class="form-group">
+      <label>Select a current user:</label>
+      <select class="form-control" id="users">
+      </select>
+    </div>
+    <button id="create-button" type="submit" class="btn btn-primary">Submit</button>
+  `;
 
   createForm.addEventListener("submit", (event) => userSelectFormHandler(event));
 
-  // formContainer.appendChild(createForm);
+  formContainer.appendChild(createForm);
 }
+
+// function renderUserCreateForm() {
+//   const createForm = document.createElement("form");
+//   createForm.id = "create-user-form";
+
+//   const label = document.createElement("label");
+//   label.innerHTML = "Create a new user:"
+//   label.htmlFor = "users";
+
+//   const input = document.createElement("input");
+//   input.setAttribute('type',"text");
+//   input.setAttribute('name',"name");
+//   input.setAttribute('id',"input-user-name");
+
+//   const submit = document.createElement("input");
+//   submit.setAttribute('type',"submit");
+//   submit.setAttribute('value',"Submit");
+
+//   createForm.appendChild(label).appendChild(input);
+//   createForm.appendChild(submit);
+
+//   createForm.addEventListener("submit", (event) => userCreateFormHandler(event));
+
+//   formContainer.appendChild(createForm);
+// }
 
 function renderUserCreateForm() {
   const createForm = document.createElement("form");
   createForm.id = "create-user-form";
+  createForm.classList.add("col");
 
-  const label = document.createElement("label");
-  label.innerHTML = "Create a new user:"
-  label.htmlFor = "users";
-
-  const input = document.createElement("input");
-  input.setAttribute('type',"text");
-  input.setAttribute('name',"name");
-  input.setAttribute('id',"input-user-name");
-
-  const submit = document.createElement("input");
-  submit.setAttribute('type',"submit");
-  submit.setAttribute('value',"Submit");
-
-  createForm.appendChild(label).appendChild(input);
-  createForm.appendChild(submit);
+  createForm.innerHTML = ` 
+    <div class="form-group">
+    <label>Create a new user:</label>
+    <input type="text" class="form-control" id="input-user-name">
+    </div>
+    <button id="create-button" type="submit" class="btn btn-primary">Submit</button>
+  `;
 
   createForm.addEventListener("submit", (event) => userCreateFormHandler(event));
 
-  // formContainer.appendChild(createForm);
+  formContainer.appendChild(createForm);
 }
 
 function userCreateFormHandler(event) {
