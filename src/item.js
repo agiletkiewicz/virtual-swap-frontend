@@ -118,7 +118,7 @@ class Item {
             deleteForm.id = "delete-item-form";
             deleteForm.innerHTML = `
                 <input type="hidden" id="item-id" value="${this.id}">
-                <input class="btn btn-sm btn-outline-secondary" type="submit" value="Delete" id="delete-item-button">
+                <input class="btn btn-warning" type="submit" value="Delete" id="delete-item-button">
             `; 
 
             deleteForm.addEventListener('submit', (event) => deleteItemFormHandler(event)),
@@ -209,7 +209,7 @@ class ItemFromForm extends Item {
         deleteForm.id = "delete-item-form";
         deleteForm.innerHTML = `
             <input type="hidden" id="item-id" value="${this.id}">
-            <input class="btn btn-sm btn-outline-secondary" type="submit" value="Delete" id="delete-item-button">
+            <input class="btn btn-warning" type="submit" value="Delete" id="delete-item-button">
         `; 
 
         deleteForm.addEventListener('submit', (event) => deleteItemFormHandler(event));
