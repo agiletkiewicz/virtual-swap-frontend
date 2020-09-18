@@ -294,7 +294,9 @@ function editTakeFormHandler(event) {
     new Adapter('/takes').postRequest(bodyData)
     .then(response => {
       new Take(response.id, response);
-      event.target.querySelector("#take-button").value = "Taken!";
+      const button = event.target.querySelector("#take-button")
+      button.value = "Taken!";
+      button.className = "btn btn-success";
       event.target.querySelector("#take-id").value = response.id;
     })
 }

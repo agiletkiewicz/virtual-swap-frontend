@@ -144,7 +144,7 @@ class Item {
                 <input type="hidden" id="item-id" value="${this.id}">
                 <input type="hidden" id="take-id" value="${itemTake.id}">
                 <input type="hidden" id="user-id" value="${User._current.id}">
-                <input class="btn btn-sm btn-outline-secondary" type="submit" value="Taken!" id="take-button">
+                <input class="btn btn-success" type="submit" value="Taken!" id="take-button">
             `; 
 
             takeForm.addEventListener('submit', (event) => editTakeFormHandler(event)),
