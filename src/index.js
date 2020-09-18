@@ -83,6 +83,7 @@ function renderEvent(event) {
   header.innerText = eventData.name;
   const subheader = document.createElement("h2");
   subheader.innerText = eventData.rules;
+  document.querySelector("#page-title").innerText = "Create a new item"
 
   document.getElementById('create-event-form').style.display = 'none';
   document.getElementById('view-event-form').style.display = 'none';
@@ -285,7 +286,7 @@ function editTakeFormHandler(event) {
           "Accept": "application/json"
       }
       })
-      event.target.querySelector("#take-button").value = "Take item";
+      event.target.querySelector("#take-button").value = "Take";
       Take.deleteById(take_id);
       
   
@@ -309,7 +310,7 @@ function deleteItemFormHandler(event) {
         "Accept": "application/json"
     }
     });
-
-    event.target.parentElement.remove();
+    
+    document.querySelector(`[data-id="${item_id}"]`).remove();
     Item.deleteById(item_id);
 }
