@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+
+  <div id="event-container">
+  </div>
+
+  <div id="form-container">
+
+    <form id="create-event-form">
+
+      <h3>Create an event</h3>
+      <br>
+      <label>Name your event:</label>
+      <br>
+      <input id="input-name" type="text" name="name">
+      <br><br>
+      <label>Create rules to let your friends know what to expect:</label>
+      <br>
+      <textarea id="input-rules" rows="4" cols="40" value="" name="rules" placeholder="i.e. only items in good condition"></textarea>
+      <br><br>
+      <label>Create a 6 digit numerical pin for your event:</label>
+      <br>
+      <input id="input-pin" type="password" name="pin">
+      <br><br>
+      <input id="create-button" type="submit" name="submit" value="Create new event">
+
+   </form>
+
+   <form id="view-event-form">
+    <h3>Join an event</h3>
+    <select id="events" name="events"></select> 
+    <br><br>
+    <input id="pin" type="password" name="pin" placeholder="enter the event pin">
+    <br><br>
+    <input id="create-button" type="submit" name="submit" value="View existing event">
+   </form>
+
+  </div>
+
+   <div id="item-container">
+   </div>
+
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+   <script type="application/javascript" src="src/index.js" charset="UTF-8"></script>
+   <script type="application/javascript" src="src/adapter.js" charset="UTF-8"></script>
+   <script type="application/javascript" src="src/user.js" charset="UTF-8"></script>
+   <script type="application/javascript" src="src/item.js" charset="UTF-8"></script>
+   <script type="application/javascript" src="src/take.js" charset="UTF-8"></script>
+
+
+  </body>
+</html>
+

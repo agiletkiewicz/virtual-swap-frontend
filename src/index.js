@@ -63,10 +63,16 @@ function createEventFetch(name, rules, pin) {
 
   new Adapter('/events').postRequest(bodyData)
   .then(event => {
+    if (event.error) {
+      debugger
+      console.log(event.error)
+    } else {
     renderUserSelectForm();
     renderUserCreateForm();
     renderEvent(event);
+    }
   })
+  .catch(error => console.log(error))
 }
 
 function renderEvent(event) { 
@@ -75,8 +81,13 @@ function renderEvent(event) {
 
   const header = document.createElement("h1");
   header.innerText = eventData.name;
-  const subheader = document.createElement("h2");
-  subheader.innerText = eventData.rules;
+  header.classList.add("text-white");
+  header.id = "shadow";
+  const subheader = document.createElement("h3");
+  subheader.innerHTML = `ground rules: <br> ${eventData.rules}`;
+  subheader.classList.add("text-white");
+  subheader.id = "shadow";
+  document.querySelector("#page-title").innerText = "Create a new item"
 
   document.getElementById('create-event-form').style.display = 'none';
   document.getElementById('view-event-form').style.display = 'none';
@@ -101,46 +112,34 @@ function renderEvent(event) {
 function renderUserSelectForm() {
   const createForm = document.createElement("form");
   createForm.id = "select-user-form";
-
-  const select = document.createElement("select");
-  select.name = "users";
-  select.id = "users";
-
-  const label = document.createElement("label");
-  label.innerHTML = "Choose an existing user: "
-  label.htmlFor = "users";
-
-  const submit = document.createElement("input");
-  submit.setAttribute('type',"submit");
-  submit.setAttribute('value',"Submit");
-
-  createForm.appendChild(label).appendChild(select);
-  createForm.appendChild(submit);
+  createForm.classList.add("col");
+  createForm.innerHTML = `
+    <div class="form-group">
+      <label class="text-white">Select a current user:</label>
+      <select class="form-control" id="users">
+      </select>
+    </div>
+    <button id="create-button" type="submit" class="btn btn-info">Submit</button>
+  `;
 
   createForm.addEventListener("submit", (event) => userSelectFormHandler(event));
 
   formContainer.appendChild(createForm);
 }
 
+
 function renderUserCreateForm() {
   const createForm = document.createElement("form");
   createForm.id = "create-user-form";
+  createForm.classList.add("col");
 
-  const label = document.createElement("label");
-  label.innerHTML = "Create a new user:"
-  label.htmlFor = "users";
-
-  const input = document.createElement("input");
-  input.setAttribute('type',"text");
-  input.setAttribute('name',"name");
-  input.setAttribute('id',"input-user-name");
-
-  const submit = document.createElement("input");
-  submit.setAttribute('type',"submit");
-  submit.setAttribute('value',"Submit");
-
-  createForm.appendChild(label).appendChild(input);
-  createForm.appendChild(submit);
+  createForm.innerHTML = ` 
+    <div class="form-group">
+    <label class="text-white">Create a new user:</label>
+    <input type="text" class="form-control" id="input-user-name">
+    </div>
+    <button id="create-button" type="submit" class="btn btn-info">Submit</button>
+  `;
 
   createForm.addEventListener("submit", (event) => userCreateFormHandler(event));
 
@@ -185,17 +184,22 @@ function addTakeButtons() {
 function renderItemCreateForm() {
   const createForm = document.createElement("form");
   createForm.id = "create-item-form";
+  createForm.classList.add("col-md-8");
   createForm.innerHTML = `
-      <h3>Create a new item</h3>
-      <input id="input-title" type="text" name="title" placeholder="title">
-      <br><br>
-      <input id="input-image" type="text" name="image" placeholder="image url">
-      <br><br>
-      <input id="input-size" type="text" name="size" placeholder="size">
-      <br><br>
-      <input id="input-notes" type="text" name="notes" placeholder="notes">
-      <br><br>
-      <input id="create-button" type="submit" name="submit" value="Add new item"></input>
+      <h3 class="text-white">Create a new item</h3>
+      <div class="form-group">
+      <input class="form-control" id="input-title" type="text" name="title" placeholder="title">
+      </div>
+      <div class="form-group">
+      <input class="form-control" id="input-image" type="text" name="image" placeholder="image url">
+      </div>
+      <div class="form-group">
+      <input class="form-control" id="input-size" type="text" name="size" placeholder="size">
+      </div>
+      <div class="form-group">
+      <input class="form-control" id="input-notes" type="text" name="notes" placeholder="notes">
+      </div>
+      <input class="btn btn-info" id="create-button" type="submit" name="submit" value="Add new item"></input>
   `;
   createForm.addEventListener('submit', event => createItemFormHandler(event))
   formContainer.appendChild(createForm);
@@ -238,14 +242,17 @@ function editTakeFormHandler(event) {
           "Accept": "application/json"
       }
       })
-      event.target.querySelector("#take-button").value = "Take item";
+      event.target.querySelector("#take-button").value = "Take";
+      Take.deleteById(take_id);
       
   
   } else {
     new Adapter('/takes').postRequest(bodyData)
     .then(response => {
       new Take(response.id, response);
-      event.target.querySelector("#take-button").value = "Taken!";
+      const button = event.target.querySelector("#take-button")
+      button.value = "Taken!";
+      button.className = "btn btn-success";
       event.target.querySelector("#take-id").value = response.id;
     })
 }
@@ -261,7 +268,7 @@ function deleteItemFormHandler(event) {
         "Accept": "application/json"
     }
     });
-
-    event.target.parentElement.remove();
-    event.target.remove();
+    
+    document.querySelector(`[data-id="${item_id}"]`).remove();
+    Item.deleteById(item_id);
 }

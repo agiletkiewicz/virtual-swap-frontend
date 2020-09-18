@@ -8,29 +8,44 @@ class Item {
         return User.findById(this.userId).name
     }
 
+    static deleteById(id) {
+        const index = this.all.findIndex( item => item.id === id );
+        this.all.splice(index, 1);
+    }
+
+
     renderItemCard() {  
         const cardDiv = document.createElement('div');
         cardDiv.id = "card-div";
+        cardDiv.classList.add("col-md-4");
         cardDiv.dataset.id = this.id;
         cardDiv.innerHTML += `
-            <h3> ${this.title} </h3>
-            <img src="${this.image_url}" width=20% height=auto>
-            <p> size: ${this.size} </p>
-            <p> notes: <br> ${this.notes} </p>
+            <div class="card mb-4 shadow-sm">
+                <img src="${this.image_url}" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class ="card-title">${this.title}</h5>
+                <p class="card-text">size: ${this.size} <br> notes: ${this.notes}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                    </div>
+                    <small id="giver" class="text-muted"></small>
+                </div>
+                </div>
+            </div>
         `;
         document.querySelector("#item-container").appendChild(cardDiv);
     }
 
     addUserToItemCard() {
-        const newP = document.createElement('p');
-        newP.id = "giver"
-        newP.innerText = `given by: ${this.findUser()}`;
-        document.querySelector(`[data-id="${this.id}"]`).appendChild(newP);
+        const cardDiv = document.querySelector(`[data-id="${this.id}"]`);
+        cardDiv.querySelector("#giver").innerText = `given by: ${this.findUser()}`;
     }
+
 
     addTakeToItemCard() {
         const itemTake = Take.all.find( take => take.itemId === this.id)
         const thisCard = document.querySelector(`[data-id="${this.id}"]`);
+        const button = thisCard.querySelector(".btn-group");
 
         if (this.userId === User._current.id) {
             thisCard.querySelector("#giver").innerHTML = "My item";
@@ -38,11 +53,11 @@ class Item {
             deleteForm.id = "delete-item-form";
             deleteForm.innerHTML = `
                 <input type="hidden" id="item-id" value="${this.id}">
-                <input type="submit" value="Delete this item" id="delete-item-button">
+                <input class="btn btn-warning" type="submit" value="Delete" id="delete-item-button">
             `; 
 
             deleteForm.addEventListener('submit', (event) => deleteItemFormHandler(event)),
-            thisCard.appendChild(deleteForm);
+            button.appendChild(deleteForm);
 
         } else if (!itemTake){
             const takeForm = document.createElement("form");
@@ -51,11 +66,11 @@ class Item {
                 <input type="hidden" id="item-id" value="${this.id}">
                 <input type="hidden" id="take-id" value="0">
                 <input type="hidden" id="user-id" value="${User._current.id}">
-                <input type="submit" value="Take item" id="take-button">
+                <input class="btn btn-sm btn-outline-secondary" type="submit" value="Take" id="take-button">
             `; 
 
             takeForm.addEventListener('submit', (event) => editTakeFormHandler(event)),
-            thisCard.appendChild(takeForm);
+            button.appendChild(takeForm);
 
         } else if (itemTake.userId === User._current.id) {
             const takeForm = document.createElement("form");
@@ -64,15 +79,19 @@ class Item {
                 <input type="hidden" id="item-id" value="${this.id}">
                 <input type="hidden" id="take-id" value="${itemTake.id}">
                 <input type="hidden" id="user-id" value="${User._current.id}">
-                <input type="submit" value="Taken!" id="take-button">
+                <input class="btn btn-success" type="submit" value="Taken!" id="take-button">
             `; 
 
             takeForm.addEventListener('submit', (event) => editTakeFormHandler(event)),
-            thisCard.appendChild(takeForm);
+            button.appendChild(takeForm);
         } else {
-            const newP = document.createElement('p');
-            newP.innerText = `Item taken by ${User.findById(itemTake.userId).name}`;
-             thisCard.appendChild(newP);
+            debugger
+            const newButton = document.createElement('button');
+            newButton.innerText = `taken by ${User.findById(itemTake.userId).name}`;
+            newButton.classList.add("btn");
+            newButton.classList.add("btn-outline-secondary");
+            newButton.classList.add("btn-sm");
+            button.appendChild(newButton);
         }
     }
 
@@ -106,12 +125,21 @@ class ItemFromForm extends Item {
         const cardDiv = document.createElement('div');
         cardDiv.id = "card-div";
         cardDiv.dataset.id = this.id;
+        cardDiv.classList.add("col-md-4");
+
         cardDiv.innerHTML += `
-            <h3> ${this.title} </h3>
-            <img src="${this.image_url}" width=20% height=auto>
-            <p> size: ${this.size} </p>
-            <p> notes: <br> ${this.notes} </p>
-            <p id="giver"> My item </p>
+            <div class="card mb-4 shadow-sm">
+                <img src="${this.image_url}" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class ="card-title">${this.title}</h5>
+                <p class="card-text">size: ${this.size} <br> notes: ${this.notes}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                    </div>
+                    <small id="giver" class="text-muted">My item</small>
+                </div>
+                </div>
+            </div>
         `;
         document.querySelector("#item-container").appendChild(cardDiv);
 
@@ -119,11 +147,12 @@ class ItemFromForm extends Item {
         deleteForm.id = "delete-item-form";
         deleteForm.innerHTML = `
             <input type="hidden" id="item-id" value="${this.id}">
-            <input type="submit" value="Delete this item" id="delete-item-button">
+            <input class="btn btn-warning" type="submit" value="Delete" id="delete-item-button">
         `; 
 
-        deleteForm.addEventListener('submit', (event) => deleteItemFormHandler(event)),
-        cardDiv.appendChild(deleteForm);
+        deleteForm.addEventListener('submit', (event) => deleteItemFormHandler(event));
+        const button = cardDiv.querySelector(".btn-group");
+        button.appendChild(deleteForm);
     }
 
 }

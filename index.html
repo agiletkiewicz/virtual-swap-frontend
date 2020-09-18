@@ -1,57 +1,132 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>Virtual Swap</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="index.css" rel="stylesheet">
   </head>
   <body>
-
-  <div id="event-container">
-  </div>
-
-  <div id="form-container">
-
-    <form id="create-event-form">
+    <header>
+  <div class="collapse bg-dark" id="navbarHeader">
+    <div class="container" >
+      <div class="row">
+        <div class="col-sm-8 col-md-7 py-4">
+          <h4 class="text-white">About</h4>
+          <p class="text-muted">Create a virtual swap event to share items with your friends.</p>
+        </div>
+      </div>
       
-      <h3>Create an event</h3>
-      <br>
-      <label>Name your event:</label>
-      <br>
-      <input id="input-name" type="text" name="name" placeholder="name your event">
-      <br><br>
-      <label>Create rules to let your friends know what to expect:</label>
-      <textarea id="input-rules" rows="4" cols="40" value="" name="rules" placeholder="i.e. only items in good condition"></textarea>
-      <br><br>
-      <label>Create a 6 digit numerical pin for your event:</label>
-      <br>
-      <input id="input-pin" type="password" name="pin">
-      <br><br>
-      <input id="create-button" type="submit" name="submit" value="Create new event">
+      <div class="row" id="form-container">
 
-   </form>
+      </div>
+    </div>
+  </div>
+  <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container d-flex justify-content-between">
+      <a href="#" class="navbar-brand d-flex align-items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <div id="page-title">
+        <strong>Welcome to your virtual swap resource!</strong>
+      </div>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+</header>
 
-   <form id="view-event-form">
-    <h3>Join an event</h3>
-    <select id="events" name="events"></select> 
-    <br><br>
-    <input id="pin" type="text" name="pin" placeholder="enter the event pin">
-    <br><br>
-    <input id="create-button" type="submit" name="submit" value="View existing event">
-   </form>
+<main role="main">
 
+  <section class="jumbotron text-center">
+    <div class="container" id="event-container">
+      <form id="create-event-form">
+        <h1 class="text-white" id="shadow">Create an swap</h1>
+          <div class="form-group">
+            <label class="text-white">Name your event:</label>
+            <input type="text" class="form-control" id="input-name">
+          </div>
+          <div class="form-group">
+            <label class="text-white">Create rules to let your friends know what to expect:</label>
+            <textarea id="input-rules" class="form-control" rows="3" placeholder="i.e. only items in good condition"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="text-white">Create a 6 digit numerical pin for your event:</label>
+            <input id="input-pin" type="password" class="form-control">
+          </div>
+          <button id="create-button" type="submit" class="btn btn-info">Create</button>
+      </form>
+
+      <br><br>
+  
+      <form id="view-event-form">
+          <h1 class="text-white" id="shadow">Join a swap</h1>
+          <div class="form-group">
+            <select class="form-control" id="events">
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="text-white">Pin</label>
+            <input type="password" class="form-control" id="pin" placeholder="enter the event pin">
+          </div>
+          <button id="create-button" type="submit" class="btn btn-info">Join</button>
+      </form>
+      </p>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row" id="item-container">
+
+
+        
+      </div>
+    </div>
   </div>
 
-   <div id="item-container">
-   </div>
-
-
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
    <script type="application/javascript" src="src/index.js" charset="UTF-8"></script>
    <script type="application/javascript" src="src/adapter.js" charset="UTF-8"></script>
    <script type="application/javascript" src="src/user.js" charset="UTF-8"></script>
    <script type="application/javascript" src="src/item.js" charset="UTF-8"></script>
    <script type="application/javascript" src="src/take.js" charset="UTF-8"></script>
 
+</main>
 
-  </body>
+<footer class="text-muted">
+  <div class="container">
+    <p class="float-right">
+      <a href="#">Back to top</a>
+    </p>
+  </div>
+</footer>
+
 </html>
-
