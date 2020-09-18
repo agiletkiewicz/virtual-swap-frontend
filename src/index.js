@@ -81,8 +81,8 @@ function renderEvent(event) {
 
   const header = document.createElement("h1");
   header.innerText = eventData.name;
-  const subheader = document.createElement("h2");
-  subheader.innerText = eventData.rules;
+  const subheader = document.createElement("h3");
+  subheader.innerHTML = `ground rules: <br> ${eventData.rules}`;
   document.querySelector("#page-title").innerText = "Create a new item"
 
   document.getElementById('create-event-form').style.display = 'none';
