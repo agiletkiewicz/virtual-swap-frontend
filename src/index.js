@@ -125,7 +125,7 @@ function renderUserSelectForm() {
 
   createForm.addEventListener("submit", (event) => userSelectFormHandler(event));
 
-  formContainer.appendChild(createForm);
+  // formContainer.appendChild(createForm);
 }
 
 function renderUserCreateForm() {
@@ -150,7 +150,7 @@ function renderUserCreateForm() {
 
   createForm.addEventListener("submit", (event) => userCreateFormHandler(event));
 
-  formContainer.appendChild(createForm);
+  // formContainer.appendChild(createForm);
 }
 
 function userCreateFormHandler(event) {
@@ -183,7 +183,7 @@ function userSelectFormHandler(event) {
 
 function addTakeButtons() {
   for (const element of Item.all) {
-    element.addTakeToItemCard();
+    // element.addTakeToItemCard();
   }
 }
 

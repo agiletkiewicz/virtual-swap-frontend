@@ -13,24 +13,51 @@ class Item {
         this.all.splice(index, 1);
     }
 
+    // renderItemCard() {  
+    //     const cardDiv = document.createElement('div');
+    //     cardDiv.id = "card-div";
+    //     cardDiv.dataset.id = this.id;
+    //     cardDiv.innerHTML += `
+    //         <h3> ${this.title} </h3>
+    //         <img src="${this.image_url}" width=20% height=auto>
+    //         <p> size: ${this.size} </p>
+    //         <p> notes: <br> ${this.notes} </p>
+    //     `;
+    //     document.querySelector("#item-container").appendChild(cardDiv);
+    // }
+
     renderItemCard() {  
         const cardDiv = document.createElement('div');
         cardDiv.id = "card-div";
+        cardDiv.classList.add("col-md-4");
         cardDiv.dataset.id = this.id;
         cardDiv.innerHTML += `
-            <h3> ${this.title} </h3>
-            <img src="${this.image_url}" width=20% height=auto>
-            <p> size: ${this.size} </p>
-            <p> notes: <br> ${this.notes} </p>
+            <div class="card mb-4 shadow-sm">
+                <img src="${this.image_url}" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class ="card-title">${this.title}</h5>
+                <p class="card-text">size: ${this.size} <br> notes: ${this.notes}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary"></button>
+                    </div>
+                    <small id="giver" class="text-muted"></small>
+                </div>
+                </div>
+            </div>
         `;
         document.querySelector("#item-container").appendChild(cardDiv);
     }
 
+    // addUserToItemCard() {
+    //     const newP = document.createElement('p');
+    //     newP.id = "giver"
+    //     newP.innerText = `given by: ${this.findUser()}`;
+    //     document.querySelector(`[data-id="${this.id}"]`).appendChild(newP);
+    // }
     addUserToItemCard() {
-        const newP = document.createElement('p');
-        newP.id = "giver"
-        newP.innerText = `given by: ${this.findUser()}`;
-        document.querySelector(`[data-id="${this.id}"]`).appendChild(newP);
+        const cardDiv = document.querySelector(`[data-id="${this.id}"]`);
+        cardDiv.querySelector("#giver").innerText = `given by: ${this.findUser()}`;
     }
 
     addTakeToItemCard() {
