@@ -90,12 +90,6 @@ class Item {
             takeForm.addEventListener('submit', (event) => editTakeFormHandler(event)),
             button.appendChild(takeForm);
         } else {
-            // const newButton = document.createElement('button');
-            // newButton.innerText = `taken by ${User.findById(itemTake.userId).name}`;
-            // newButton.classList.add("btn");
-            // newButton.classList.add("btn-outline-secondary");
-            // newButton.classList.add("btn-sm");
-            // button.appendChild(newButton);
             thisCard.querySelector("#giver").innerHTML = `given by: ${this.findUser()}, taken by: ${User.findById(itemTake.userId).name}`;
         }
     }

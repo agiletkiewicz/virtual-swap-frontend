@@ -87,7 +87,7 @@ function renderEvent(event) {
   subheader.innerHTML = `ground rules: <br> ${eventData.rules}`;
   subheader.classList.add("text-white");
   subheader.id = "shadow";
-  document.querySelector("#page-title").innerText = "Create a new item"
+  document.querySelector("#page-title").innerText = "Select a user"
 
   document.getElementById('create-event-form').style.display = 'none';
   document.getElementById('view-event-form').style.display = 'none';
@@ -162,6 +162,7 @@ function createUserFetch(name) {
     document.querySelector("#create-user-form").style.display = 'none';
     renderItemCreateForm();
     addTakeButtons();
+    document.querySelector("#page-title").innerText = "Add a new item";
   })
 }
 
@@ -173,6 +174,7 @@ function userSelectFormHandler(event) {
   document.querySelector("#create-user-form").style.display = 'none';
   renderItemCreateForm();
   addTakeButtons();
+  document.querySelector("#page-title").innerText = "Add a new item";
 }
 
 function addTakeButtons() {
@@ -187,7 +189,7 @@ function renderItemCreateForm() {
   createForm.id = "create-item-form";
   createForm.classList.add("col-md-8");
   createForm.innerHTML = `
-      <h3 class="text-white">Create a new item</h3>
+      <h3 class="text-white">Add a new item</h3>
       <div class="form-group">
       <input class="form-control" id="input-title" type="text" name="title" placeholder="title">
       </div>
