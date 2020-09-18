@@ -216,6 +216,7 @@ function createItemFetch(title, size, notes, image_url) {
   new Adapter(`/items`).postRequest(bodyData)
   .then(event => {
     const item = new ItemFromForm(event.id, event);
+    document.querySelector("#create-item-form").reset();
     item.renderItemCardFromDb();
   })
 }
