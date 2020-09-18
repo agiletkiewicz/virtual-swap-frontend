@@ -245,6 +245,7 @@ function editTakeFormHandler(event) {
       }
       })
       event.target.querySelector("#take-button").value = "Take item";
+      Take.deleteById(take_id);
       
   
   } else {
