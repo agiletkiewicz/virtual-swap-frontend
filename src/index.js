@@ -91,6 +91,8 @@ function renderEvent(event) {
       const newUser = new User(element);
       let newOption = new Option(newUser.name, newUser.id);
       document.querySelector("#users").appendChild(newOption,undefined);
+    } else if (element.type === "take") {
+      new Take(element.id, element.attributes);
     }
   }
 }
@@ -170,6 +172,13 @@ function userSelectFormHandler(event) {
   document.querySelector("#select-user-form").style.display = 'none';
   document.querySelector("#create-user-form").style.display = 'none';
   renderItemCreateForm();
+  addTakeButtons();
+}
+
+function addTakeButtons() {
+  for (const element of Item.all) {
+    element.addTakeToItemCard();
+  }
 }
 
 
@@ -179,6 +188,8 @@ function renderItemCreateForm() {
   createForm.innerHTML = `
       <h3>Create a new item</h3>
       <input id="input-title" type="text" name="title" placeholder="title">
+      <br><br>
+      <input id="input-image" type="text" name="image" placeholder="image url">
       <br><br>
       <input id="input-size" type="text" name="size" placeholder="size">
       <br><br>
@@ -195,17 +206,62 @@ function createItemFormHandler(event) {
   const titleInput = document.querySelector("#input-title").value;
   const sizeInput = document.querySelector("#input-size").value;
   const notesInput = document.querySelector("#input-notes").value;
-  createItemFetch(titleInput, sizeInput, notesInput);
+  const imageInput = document.querySelector("#input-image").value;
+  createItemFetch(titleInput, sizeInput, notesInput, imageInput);
 }
 
-function createItemFetch(title, size, notes) {
-  const bodyData = {title, size, notes, user_id: User._current.id}
+function createItemFetch(title, size, notes, image_url) {
+  const bodyData = {title, size, notes, image_url, user_id: User._current.id}
 
   new Adapter(`/items`).postRequest(bodyData)
   .then(event => {
-    debugger
     const item = new ItemFromForm(event.id, event);
-    item.renderItemCard();
+    document.querySelector("#create-item-form").reset();
+    item.renderItemCardFromDb();
   })
 }
 
+function editTakeFormHandler(event) {
+  event.preventDefault();
+  const item_id = parseInt(event.target.querySelector("#item-id").value);
+  const user_id = parseInt(event.target.querySelector("#user-id").value);
+
+  const bodyData = {item_id, user_id}
+  
+  if (event.target.querySelector("#take-button").value === "Taken!") {
+    const take_id = parseInt(event.target.querySelector("#take-id").value);
+    
+      fetch(`http://localhost:3000/api/v1/takes/${take_id}`, {
+      method: "DELETE",
+      headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+      }
+      })
+      event.target.querySelector("#take-button").value = "Take item";
+      
+  
+  } else {
+    new Adapter('/takes').postRequest(bodyData)
+    .then(response => {
+      new Take(response.id, response);
+      event.target.querySelector("#take-button").value = "Taken!";
+      event.target.querySelector("#take-id").value = response.id;
+    })
+}
+}
+
+function deleteItemFormHandler(event) {
+  const item_id = parseInt(event.target.querySelector("#item-id").value);
+
+  fetch(`http://localhost:3000/api/v1/items/${item_id}`, {
+    method: "DELETE",
+    headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    }
+    });
+
+    event.target.parentElement.remove();
+    event.target.remove();
+}
