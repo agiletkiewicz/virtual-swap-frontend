@@ -219,7 +219,7 @@ function userSelectFormHandler(event) {
 
 function addTakeButtons() {
   for (const element of Item.all) {
-    // element.addTakeToItemCard();
+    element.addTakeToItemCard();
   }
 }
 
@@ -227,17 +227,22 @@ function addTakeButtons() {
 function renderItemCreateForm() {
   const createForm = document.createElement("form");
   createForm.id = "create-item-form";
+  createForm.classList.add("col-md-8");
   createForm.innerHTML = `
       <h3>Create a new item</h3>
-      <input id="input-title" type="text" name="title" placeholder="title">
-      <br><br>
-      <input id="input-image" type="text" name="image" placeholder="image url">
-      <br><br>
-      <input id="input-size" type="text" name="size" placeholder="size">
-      <br><br>
-      <input id="input-notes" type="text" name="notes" placeholder="notes">
-      <br><br>
-      <input id="create-button" type="submit" name="submit" value="Add new item"></input>
+      <div class="form-group">
+      <input class="form-control" id="input-title" type="text" name="title" placeholder="title">
+      </div>
+      <div class="form-group">
+      <input class="form-control" id="input-image" type="text" name="image" placeholder="image url">
+      </div>
+      <div class="form-group">
+      <input class="form-control" id="input-size" type="text" name="size" placeholder="size">
+      </div>
+      <div class="form-group">
+      <input class="form-control" id="input-notes" type="text" name="notes" placeholder="notes">
+      </div>
+      <input class="btn btn-primary" id="create-button" type="submit" name="submit" value="Add new item"></input>
   `;
   createForm.addEventListener('submit', event => createItemFormHandler(event))
   formContainer.appendChild(createForm);
