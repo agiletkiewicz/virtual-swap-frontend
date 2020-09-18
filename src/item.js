@@ -48,7 +48,12 @@ class Item {
         const button = thisCard.querySelector(".btn-group");
 
         if (this.userId === User._current.id) {
-            thisCard.querySelector("#giver").innerHTML = "My item";
+            if (itemTake) {
+                thisCard.querySelector("#giver").innerHTML = `My item, taken by: ${User.findById(itemTake.userId).name}`;
+            } else {
+                thisCard.querySelector("#giver").innerHTML = "My item";
+            }
+
             const deleteForm = document.createElement("form");
             deleteForm.id = "delete-item-form";
             deleteForm.innerHTML = `
