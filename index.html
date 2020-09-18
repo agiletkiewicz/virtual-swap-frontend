@@ -43,7 +43,7 @@
       <a href="#" class="navbar-brand d-flex align-items-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
         <div id="page-title">
-        <strong>Join an event to get started</strong>
+        <strong>Welcome to your virtual swap resource!</strong>
       </div>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,17 +58,17 @@
   <section class="jumbotron text-center">
     <div class="container" id="event-container">
       <form id="create-event-form">
-        <h1>Create an event!</h1>
+        <h1 class="text-white">Create an event!</h1>
           <div class="form-group">
-            <label>Name your event:</label>
+            <label class="text-white">Name your event:</label>
             <input type="text" class="form-control" id="input-name">
           </div>
           <div class="form-group">
-            <label>Create rules to let your friends know what to expect:</label>
+            <label class="text-white">Create rules to let your friends know what to expect:</label>
             <textarea id="input-rules" class="form-control" rows="3" placeholder="i.e. only items in good condition"></textarea>
           </div>
           <div class="form-group">
-            <label>Create a 6 digit numerical pin for your event:</label>
+            <label class="text-white">Create a 6 digit numerical pin for your event:</label>
             <input id="input-pin" type="password" class="form-control">
           </div>
           <button id="create-button" type="submit" class="btn btn-info">Create</button>
@@ -77,13 +77,13 @@
       <br><br>
   
       <form id="view-event-form">
-          <h1>Join an event</h1>
+          <h1 class="text-white">Join an event</h1>
           <div class="form-group">
             <select class="form-control" id="events">
             </select>
           </div>
           <div class="form-group">
-            <label>Password</label>
+            <label class="text-white">Pin</label>
             <input type="password" class="form-control" id="pin" placeholder="enter the event pin">
           </div>
           <button id="create-button" type="submit" class="btn btn-info">Join</button>
