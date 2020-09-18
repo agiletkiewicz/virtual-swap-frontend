@@ -161,6 +161,7 @@ function createUserFetch(name) {
     document.querySelector("#select-user-form").style.display = 'none';
     document.querySelector("#create-user-form").style.display = 'none';
     renderItemCreateForm();
+    addTakeButtons();
   })
 }
 
