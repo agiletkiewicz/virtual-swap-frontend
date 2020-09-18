@@ -135,11 +135,11 @@ function renderUserSelectForm() {
   createForm.classList.add("col");
   createForm.innerHTML = `
     <div class="form-group">
-      <label>Select a current user:</label>
+      <label class="text-white">Select a current user:</label>
       <select class="form-control" id="users">
       </select>
     </div>
-    <button id="create-button" type="submit" class="btn btn-primary">Submit</button>
+    <button id="create-button" type="submit" class="btn btn-info">Submit</button>
   `;
 
   createForm.addEventListener("submit", (event) => userSelectFormHandler(event));
@@ -179,10 +179,10 @@ function renderUserCreateForm() {
 
   createForm.innerHTML = ` 
     <div class="form-group">
-    <label>Create a new user:</label>
+    <label class="text-white">Create a new user:</label>
     <input type="text" class="form-control" id="input-user-name">
     </div>
-    <button id="create-button" type="submit" class="btn btn-primary">Submit</button>
+    <button id="create-button" type="submit" class="btn btn-info">Submit</button>
   `;
 
   createForm.addEventListener("submit", (event) => userCreateFormHandler(event));
@@ -230,7 +230,7 @@ function renderItemCreateForm() {
   createForm.id = "create-item-form";
   createForm.classList.add("col-md-8");
   createForm.innerHTML = `
-      <h3>Create a new item</h3>
+      <h3 class="text-white">Create a new item</h3>
       <div class="form-group">
       <input class="form-control" id="input-title" type="text" name="title" placeholder="title">
       </div>
@@ -243,7 +243,7 @@ function renderItemCreateForm() {
       <div class="form-group">
       <input class="form-control" id="input-notes" type="text" name="notes" placeholder="notes">
       </div>
-      <input class="btn btn-primary" id="create-button" type="submit" name="submit" value="Add new item"></input>
+      <input class="btn btn-info" id="create-button" type="submit" name="submit" value="Add new item"></input>
   `;
   createForm.addEventListener('submit', event => createItemFormHandler(event))
   formContainer.appendChild(createForm);
