@@ -14,6 +14,7 @@ class Item {
         cardDiv.dataset.id = this.id;
         cardDiv.innerHTML += `
             <h3> ${this.title} </h3>
+            <img src="${this.image_url}" width=20% height=auto>
             <p> size: ${this.size} </p>
             <p> notes: <br> ${this.notes} </p>
         `;
@@ -83,6 +84,7 @@ class ItemFromDb extends Item {
         this.title = data.attributes.title,
         this.size = data.attributes.size,
         this.notes = data.attributes.notes,
+        this.image_url = data.attributes.image_url,
         this.userId = data.attributes.user_id  
     }
 
@@ -96,7 +98,32 @@ class ItemFromForm extends Item {
         this.title = data.title,
         this.size = data.size,
         this.notes = data.notes,
+        this.image_url = data.image_url,
         this.userId = parseInt(data.user_id)
+    }
+
+    renderItemCardFromDb() {  
+        const cardDiv = document.createElement('div');
+        cardDiv.id = "card-div";
+        cardDiv.dataset.id = this.id;
+        cardDiv.innerHTML += `
+            <h3> ${this.title} </h3>
+            <img src="${this.image_url}" width=20% height=auto>
+            <p> size: ${this.size} </p>
+            <p> notes: <br> ${this.notes} </p>
+            <p id="giver"> My item </p>
+        `;
+        document.querySelector("#item-container").appendChild(cardDiv);
+
+        const deleteForm = document.createElement("form");
+        deleteForm.id = "delete-item-form";
+        deleteForm.innerHTML = `
+            <input type="hidden" id="item-id" value="${this.id}">
+            <input type="submit" value="Delete this item" id="delete-item-button">
+        `; 
+
+        deleteForm.addEventListener('submit', (event) => deleteItemFormHandler(event)),
+        cardDiv.appendChild(deleteForm);
     }
 
 }

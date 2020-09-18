@@ -92,7 +92,7 @@ function renderEvent(event) {
       let newOption = new Option(newUser.name, newUser.id);
       document.querySelector("#users").appendChild(newOption,undefined);
     } else if (element.type === "take") {
-      new Take(element);
+      new Take(element.id, element.attributes);
     }
   }
 }
@@ -189,6 +189,8 @@ function renderItemCreateForm() {
       <h3>Create a new item</h3>
       <input id="input-title" type="text" name="title" placeholder="title">
       <br><br>
+      <input id="input-image" type="text" name="image" placeholder="image url">
+      <br><br>
       <input id="input-size" type="text" name="size" placeholder="size">
       <br><br>
       <input id="input-notes" type="text" name="notes" placeholder="notes">
@@ -204,23 +206,22 @@ function createItemFormHandler(event) {
   const titleInput = document.querySelector("#input-title").value;
   const sizeInput = document.querySelector("#input-size").value;
   const notesInput = document.querySelector("#input-notes").value;
-  createItemFetch(titleInput, sizeInput, notesInput);
+  const imageInput = document.querySelector("#input-image").value;
+  createItemFetch(titleInput, sizeInput, notesInput, imageInput);
 }
 
-function createItemFetch(title, size, notes) {
-  const bodyData = {title, size, notes, user_id: User._current.id}
+function createItemFetch(title, size, notes, image_url) {
+  const bodyData = {title, size, notes, image_url, user_id: User._current.id}
 
   new Adapter(`/items`).postRequest(bodyData)
   .then(event => {
-    debugger
     const item = new ItemFromForm(event.id, event);
-    item.renderItemCard();
+    item.renderItemCardFromDb();
   })
 }
 
 function editTakeFormHandler(event) {
   event.preventDefault();
-  debugger
   const item_id = parseInt(event.target.querySelector("#item-id").value);
   const user_id = parseInt(event.target.querySelector("#user-id").value);
 
@@ -242,7 +243,7 @@ function editTakeFormHandler(event) {
   } else {
     new Adapter('/takes').postRequest(bodyData)
     .then(response => {
-      console.log(response);
+      new Take(response.id, response);
       event.target.querySelector("#take-button").value = "Taken!";
       event.target.querySelector("#take-id").value = response.id;
     })
