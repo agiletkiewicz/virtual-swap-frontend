@@ -11,15 +11,22 @@
 
   <div id="form-container">
 
-   <form id="create-event-form">
-     <h3>Create an event</h3>
-     <input id="input-name" type="text" name="name" placeholder="name your event">
-     <br><br>
-     <textarea id="input-rules" rows="4" cols="40" value="" name="rules" placeholder="create some rules, spaced with commas"></textarea>
-     <br><br>
-     <input id="input-pin" type="text" name="pin" placeholder="create a pin">
-     <br><br>
-     <input id="create-button" type="submit" name="submit" value="Create new event">
+    <form id="create-event-form">
+      
+      <h3>Create an event</h3>
+      <br>
+      <label>Name your event:</label>
+      <br>
+      <input id="input-name" type="text" name="name" placeholder="name your event">
+      <br><br>
+      <label>Create rules to let your friends know what to expect:</label>
+      <textarea id="input-rules" rows="4" cols="40" value="" name="rules" placeholder="i.e. only items in good condition"></textarea>
+      <br><br>
+      <label>Create a 6 digit numerical pin for your event:</label>
+      <br>
+      <input id="input-pin" type="password" name="pin">
+      <br><br>
+      <input id="create-button" type="submit" name="submit" value="Create new event">
 
    </form>
 
