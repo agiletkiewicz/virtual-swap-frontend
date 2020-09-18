@@ -82,9 +82,11 @@ function renderEvent(event) {
   const header = document.createElement("h1");
   header.innerText = eventData.name;
   header.classList.add("text-white");
+  header.id = "shadow";
   const subheader = document.createElement("h3");
   subheader.innerHTML = `ground rules: <br> ${eventData.rules}`;
   subheader.classList.add("text-white");
+  subheader.id = "shadow";
   document.querySelector("#page-title").innerText = "Create a new item"
 
   document.getElementById('create-event-form').style.display = 'none';

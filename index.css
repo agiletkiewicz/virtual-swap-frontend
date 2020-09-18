@@ -34,4 +34,12 @@
   footer p {
     margin-bottom: .25rem;
   }
+
+  h1#shadow {
+    text-shadow: 10px 10px 35px black;
+  }
+
+  h3#shadow {
+    text-shadow: 10px 10px 35px black;
+  }
   
