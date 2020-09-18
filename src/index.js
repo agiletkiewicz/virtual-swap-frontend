@@ -243,7 +243,9 @@ function editTakeFormHandler(event) {
           "Accept": "application/json"
       }
       })
-      event.target.querySelector("#take-button").value = "Take";
+      const button = event.target.querySelector("#take-button"); 
+      button.value = "Take";
+      button.className = "btn btn-sm btn-outline-secondary";
       Take.deleteById(take_id);
       
   
