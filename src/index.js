@@ -14,7 +14,12 @@ function fetchEvents() {
   new Adapter('/events').getRequest()
   .then(parsedResponse => {
     addEventsToForm(parsedResponse)
-  });
+  })
+  .catch(error => {
+    console.error(error);
+    document.querySelector("#get-event-error").innerText = "Events failed to load. Try refreshing the page.";
+  })
+  
 }
 
 function addEventsToForm(allEvents) {
@@ -37,10 +42,15 @@ function accessEvent(id, pin) {
 
   new Adapter(`/login`).postRequest(bodyData)
   .then(event => {
+    if (event.message) {
+      const error = document.querySelector("#get-event-error");
+      error.innerText = event.message;
+    } else {
     renderUserSelectForm();
     renderUserCreateForm();
     renderEvent(event);
     addUsers();
+    }
   })
 }
 
@@ -63,16 +73,25 @@ function createEventFetch(name, rules, pin) {
 
   new Adapter('/events').postRequest(bodyData)
   .then(event => {
-    if (event.error) {
-      debugger
-      console.log(event.error)
+    if (event.errors) {
+      const error = document.querySelector("#create-event-error");
+      error.innerText = ""
+      console.log(event.errors);
+      for (const element of event.errors) {
+        error.innerText += element;
+        const br = document.createElement('br');
+        error.appendChild(br);
+      }
     } else {
     renderUserSelectForm();
     renderUserCreateForm();
     renderEvent(event);
     }
   })
-  .catch(error => console.log(error))
+  .catch(error => {
+    console.log(error);
+    document.querySelector("#create-event-error").innerText = "Something went wrong. Please try again." 
+  });
 }
 
 function renderEvent(event) { 
@@ -136,6 +155,7 @@ function renderUserCreateForm() {
   createForm.innerHTML = ` 
     <div class="form-group">
     <label class="text-white">Create a new user:</label>
+    <p id ="create-user-error" class="text-danger"></p>
     <input type="text" class="form-control" id="input-user-name">
     </div>
     <button id="create-button" type="submit" class="btn btn-info">Submit</button>
@@ -157,13 +177,28 @@ function createUserFetch(name) {
 
   new Adapter(`/users`).postRequest(bodyData)
   .then(event => {
+    if (event.errors) {
+      const error = document.querySelector("#create-user-error");
+      error.innerText = ""
+      for (const element of event.errors) {
+        error.innerText += element;
+        const br = document.createElement('br');
+        error.appendChild(br);
+      }
+    } else {
     User._current = new User(event.data);
     document.querySelector("#select-user-form").style.display = 'none';
     document.querySelector("#create-user-form").style.display = 'none';
     renderItemCreateForm();
     addTakeButtons();
     document.querySelector("#page-title").innerText = "Add a new item";
+    }
   })
+  .catch(error => {
+    console.error(error);
+    document.querySelector("#create-user-error").innerText = "Something went wrong. Please try again.";
+  });
+  
 }
 
 function userSelectFormHandler(event) {
@@ -190,6 +225,7 @@ function renderItemCreateForm() {
   createForm.classList.add("col-md-8");
   createForm.innerHTML = `
       <h3 class="text-white">Add a new item</h3>
+      <p id ="create-item-error" class="text-danger"></p>
       <div class="form-group">
       <input class="form-control" id="input-title" type="text" name="title" placeholder="title">
       </div>
@@ -222,9 +258,23 @@ function createItemFetch(title, size, notes, image_url) {
 
   new Adapter(`/items`).postRequest(bodyData)
   .then(event => {
+    if (event.errors) {
+      const error = document.querySelector("#create-item-error");
+      error.innerText = ""
+      for (const element of event.errors) {
+        error.innerText += element;
+        const br = document.createElement('br');
+        error.appendChild(br);
+      }
+    } else {
     const item = new ItemFromForm(event.id, event);
     document.querySelector("#create-item-form").reset();
     item.renderItemCardFromDb();
+    }
+  })
+  .catch(error => {
+    console.error(error);
+    document.querySelector("#create-item-error").innerText = "Something went wrong. Please try again.";
   })
 }
 
@@ -245,13 +295,18 @@ function editTakeFormHandler(event) {
           "Accept": "application/json"
       }
       })
-      const button = event.target.querySelector("#take-button"); 
-      button.value = "Take";
-      button.className = "btn btn-sm btn-outline-secondary";
-      Take.deleteById(take_id);
-      
-  
-  } else {
+      .then((resp) => resp.json())
+      .then((obj) => {
+        const button = event.target.querySelector("#take-button"); 
+        button.value = "Take";
+        button.className = "btn btn-sm btn-outline-secondary";
+        Take.deleteById(take_id);
+        console.log(obj);
+      })
+      .catch(error => console.error(error))
+
+    } else {
+
     new Adapter('/takes').postRequest(bodyData)
     .then(response => {
       new Take(response.id, response);
@@ -260,10 +315,15 @@ function editTakeFormHandler(event) {
       button.className = "btn btn-success";
       event.target.querySelector("#take-id").value = response.id;
     })
+    .catch(error => {
+      console.error(error);
+    })
+    
 }
 }
 
 function deleteItemFormHandler(event) {
+  event.preventDefault();
   const item_id = parseInt(event.target.querySelector("#item-id").value);
 
   fetch(`http://localhost:3000/api/v1/items/${item_id}`, {
@@ -272,8 +332,15 @@ function deleteItemFormHandler(event) {
         "Content-Type": "application/json",
         "Accept": "application/json"
     }
-    });
-    
-    document.querySelector(`[data-id="${item_id}"]`).remove();
-    Item.deleteById(item_id);
+    })
+    .then((resp) => resp.json())
+    .then((obj) => {
+      document.querySelector(`[data-id="${item_id}"]`).remove();
+      Item.deleteById(item_id);
+      console.log(obj);
+    })
+    .catch(error => {
+      console.error(error);
+    })
+
 }
