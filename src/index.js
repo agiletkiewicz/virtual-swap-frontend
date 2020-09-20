@@ -15,8 +15,11 @@ function fetchEvents() {
   .then(parsedResponse => {
     addEventsToForm(parsedResponse)
   })
-  .catch(error => console.error(error))
-  document.querySelector("#get-event-error").innerText = "Events failed to load. Try refreshing the page."
+  .catch(error => {
+    console.error(error);
+    document.querySelector("#get-event-error").innerText = "Events failed to load. Try refreshing the page.";
+  })
+  
 }
 
 function addEventsToForm(allEvents) {
@@ -74,8 +77,10 @@ function createEventFetch(name, rules, pin) {
     renderEvent(event);
     }
   })
-  .catch(error => console.log(error));
-  document.querySelector("#create-event-error").innerText = "Something went wrong. Please try again."
+  .catch(error => {
+    console.log(error);
+    document.querySelector("#create-event-error").innerText = "Something went wrong. Please try again." 
+  });
 }
 
 function renderEvent(event) { 
@@ -139,6 +144,7 @@ function renderUserCreateForm() {
   createForm.innerHTML = ` 
     <div class="form-group">
     <label class="text-white">Create a new user:</label>
+    <p id ="create-user-error" class="text-danger"></p>
     <input type="text" class="form-control" id="input-user-name">
     </div>
     <button id="create-button" type="submit" class="btn btn-info">Submit</button>
@@ -167,7 +173,11 @@ function createUserFetch(name) {
     addTakeButtons();
     document.querySelector("#page-title").innerText = "Add a new item";
   })
-  .catch(error => console.error(error))
+  .catch(error => {
+    console.error(error);
+    document.querySelector("#create-user-error").innerText = "Something went wrong. Please try again.";
+  });
+  
 }
 
 function userSelectFormHandler(event) {
