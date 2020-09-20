@@ -275,7 +275,7 @@ function editTakeFormHandler(event) {
       .catch(error => console.error(error))
 
     } else {
-      
+
     new Adapter('/takes').postRequest(bodyData)
     .then(response => {
       new Take(response.id, response);
@@ -292,6 +292,7 @@ function editTakeFormHandler(event) {
 }
 
 function deleteItemFormHandler(event) {
+  event.preventDefault();
   const item_id = parseInt(event.target.querySelector("#item-id").value);
 
   fetch(`http://localhost:3000/api/v1/items/${item_id}`, {
@@ -300,8 +301,15 @@ function deleteItemFormHandler(event) {
         "Content-Type": "application/json",
         "Accept": "application/json"
     }
-    });
-    
-    document.querySelector(`[data-id="${item_id}"]`).remove();
-    Item.deleteById(item_id);
+    })
+    .then((resp) => resp.json())
+    .then((obj) => {
+      document.querySelector(`[data-id="${item_id}"]`).remove();
+      Item.deleteById(item_id);
+      console.log(obj);
+    })
+    .catch(error => {
+      console.error(error);
+    })
+
 }
