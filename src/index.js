@@ -264,13 +264,18 @@ function editTakeFormHandler(event) {
           "Accept": "application/json"
       }
       })
-      const button = event.target.querySelector("#take-button"); 
-      button.value = "Take";
-      button.className = "btn btn-sm btn-outline-secondary";
-      Take.deleteById(take_id);
+      .then((resp) => resp.json())
+      .then((obj) => {
+        const button = event.target.querySelector("#take-button"); 
+        button.value = "Take";
+        button.className = "btn btn-sm btn-outline-secondary";
+        Take.deleteById(take_id);
+        console.log(obj);
+      })
+      .catch(error => console.error(error))
+
+    } else {
       
-  
-  } else {
     new Adapter('/takes').postRequest(bodyData)
     .then(response => {
       new Take(response.id, response);
@@ -279,6 +284,10 @@ function editTakeFormHandler(event) {
       button.className = "btn btn-success";
       event.target.querySelector("#take-id").value = response.id;
     })
+    .catch(error => {
+      console.error(error);
+    })
+    
 }
 }
 
