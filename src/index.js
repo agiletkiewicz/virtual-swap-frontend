@@ -204,6 +204,7 @@ function renderItemCreateForm() {
   createForm.classList.add("col-md-8");
   createForm.innerHTML = `
       <h3 class="text-white">Add a new item</h3>
+      <p id ="create-item-error" class="text-danger"></p>
       <div class="form-group">
       <input class="form-control" id="input-title" type="text" name="title" placeholder="title">
       </div>
@@ -240,7 +241,10 @@ function createItemFetch(title, size, notes, image_url) {
     document.querySelector("#create-item-form").reset();
     item.renderItemCardFromDb();
   })
-  .catch(error => console.error(error))
+  .catch(error => {
+    console.error(error);
+    document.querySelector("#create-item-error").innerText = "Something went wrong. Please try again.";
+  })
 }
 
 function editTakeFormHandler(event) {
