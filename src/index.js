@@ -42,10 +42,15 @@ function accessEvent(id, pin) {
 
   new Adapter(`/login`).postRequest(bodyData)
   .then(event => {
+    if (event.message) {
+      const error = document.querySelector("#get-event-error");
+      error.innerText = event.message;
+    } else {
     renderUserSelectForm();
     renderUserCreateForm();
     renderEvent(event);
     addUsers();
+    }
   })
 }
 
