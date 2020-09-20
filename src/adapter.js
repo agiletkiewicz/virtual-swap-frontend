@@ -18,4 +18,14 @@ class Adapter {
         return fetch(this.path, configObj).then(res => res.json())
     } 
 
+    deleteRequest() {
+        
+        const configObj = {
+            method: "DELETE",
+            headers: {"Content-Type": "application/json"},
+        }
+
+        return fetch(this.path, configObj).then(res => res.json())
+    }
+
 }

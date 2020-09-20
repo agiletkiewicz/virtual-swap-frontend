@@ -286,15 +286,8 @@ function editTakeFormHandler(event) {
   
   if (event.target.querySelector("#take-button").value === "Taken!") {
     const take_id = parseInt(event.target.querySelector("#take-id").value);
-    
-      fetch(`http://localhost:3000/api/v1/takes/${take_id}`, {
-      method: "DELETE",
-      headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-      }
-      })
-      .then((resp) => resp.json())
+
+      new Adapter(`/takes/${take_id}`).deleteRequest()
       .then((obj) => {
         const button = event.target.querySelector("#take-button"); 
         button.value = "Take";
@@ -325,14 +318,7 @@ function deleteItemFormHandler(event) {
   event.preventDefault();
   const item_id = parseInt(event.target.querySelector("#item-id").value);
 
-  fetch(`http://localhost:3000/api/v1/items/${item_id}`, {
-    method: "DELETE",
-    headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-    }
-    })
-    .then((resp) => resp.json())
+  new Adapter(`/items/${item_id}`).deleteRequest()
     .then((obj) => {
       document.querySelector(`[data-id="${item_id}"]`).remove();
       Item.deleteById(item_id);
