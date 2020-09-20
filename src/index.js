@@ -14,7 +14,8 @@ function fetchEvents() {
   new Adapter('/events').getRequest()
   .then(parsedResponse => {
     addEventsToForm(parsedResponse)
-  });
+  })
+  .catch(error => console.error(error))
 }
 
 function addEventsToForm(allEvents) {
@@ -72,7 +73,8 @@ function createEventFetch(name, rules, pin) {
     renderEvent(event);
     }
   })
-  .catch(error => console.log(error))
+  .catch(error => console.log(error));
+  document.querySelector("#create-event-error").innerText = "Something went wrong. Please try again."
 }
 
 function renderEvent(event) { 
@@ -164,6 +166,7 @@ function createUserFetch(name) {
     addTakeButtons();
     document.querySelector("#page-title").innerText = "Add a new item";
   })
+  .catch(error => console.error(error))
 }
 
 function userSelectFormHandler(event) {
@@ -226,6 +229,7 @@ function createItemFetch(title, size, notes, image_url) {
     document.querySelector("#create-item-form").reset();
     item.renderItemCardFromDb();
   })
+  .catch(error => console.error(error))
 }
 
 function editTakeFormHandler(event) {
