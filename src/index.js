@@ -68,9 +68,15 @@ function createEventFetch(name, rules, pin) {
 
   new Adapter('/events').postRequest(bodyData)
   .then(event => {
-    if (event.error) {
-      debugger
-      console.log(event.error)
+    if (event.errors) {
+      const error = document.querySelector("#create-event-error");
+      error.innerText = ""
+      console.log(event.errors);
+      for (const element of event.errors) {
+        error.innerText += element;
+        const br = document.createElement('br');
+        error.appendChild(br);
+      }
     } else {
     renderUserSelectForm();
     renderUserCreateForm();
