@@ -16,6 +16,7 @@ function fetchEvents() {
     addEventsToForm(parsedResponse)
   })
   .catch(error => console.error(error))
+  document.querySelector("#get-event-error").innerText = "Events failed to load. Try refreshing the page."
 }
 
 function addEventsToForm(allEvents) {
