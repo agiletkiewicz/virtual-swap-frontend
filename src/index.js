@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 })
 
-const eventContainer = document.querySelector("#event-container");
-const formContainer = document.querySelector("#form-container");
 let currentEventId
 
 function fetchEvents() {
@@ -96,6 +94,7 @@ function createEventFetch(name, rules, pin) {
 
 function renderEvent(event) { 
   const eventData = event.data.attributes;
+  const eventContainer = document.querySelector("#event-container");
   currentEventId = event.data.id
 
   const header = document.createElement("h1");
@@ -143,7 +142,7 @@ function renderUserSelectForm() {
 
   createForm.addEventListener("submit", (event) => userSelectFormHandler(event));
 
-  formContainer.appendChild(createForm);
+  document.querySelector("#form-container").appendChild(createForm);
 }
 
 
@@ -163,7 +162,7 @@ function renderUserCreateForm() {
 
   createForm.addEventListener("submit", (event) => userCreateFormHandler(event));
 
-  formContainer.appendChild(createForm);
+  document.querySelector("#form-container").appendChild(createForm);
 }
 
 function userCreateFormHandler(event) {
@@ -241,7 +240,7 @@ function renderItemCreateForm() {
       <input class="btn btn-info" id="create-button" type="submit" name="submit" value="Add new item"></input>
   `;
   createForm.addEventListener('submit', event => createItemFormHandler(event))
-  formContainer.appendChild(createForm);
+  document.querySelector("#form-container").appendChild(createForm);
 }
 
 function createItemFormHandler(event) {
