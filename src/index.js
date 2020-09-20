@@ -177,12 +177,22 @@ function createUserFetch(name) {
 
   new Adapter(`/users`).postRequest(bodyData)
   .then(event => {
+    if (event.errors) {
+      const error = document.querySelector("#create-user-error");
+      error.innerText = ""
+      for (const element of event.errors) {
+        error.innerText += element;
+        const br = document.createElement('br');
+        error.appendChild(br);
+      }
+    } else {
     User._current = new User(event.data);
     document.querySelector("#select-user-form").style.display = 'none';
     document.querySelector("#create-user-form").style.display = 'none';
     renderItemCreateForm();
     addTakeButtons();
     document.querySelector("#page-title").innerText = "Add a new item";
+    }
   })
   .catch(error => {
     console.error(error);
