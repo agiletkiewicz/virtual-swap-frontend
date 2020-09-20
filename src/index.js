@@ -248,9 +248,19 @@ function createItemFetch(title, size, notes, image_url) {
 
   new Adapter(`/items`).postRequest(bodyData)
   .then(event => {
+    if (event.errors) {
+      const error = document.querySelector("#create-item-error");
+      error.innerText = ""
+      for (const element of event.errors) {
+        error.innerText += element;
+        const br = document.createElement('br');
+        error.appendChild(br);
+      }
+    } else {
     const item = new ItemFromForm(event.id, event);
     document.querySelector("#create-item-form").reset();
     item.renderItemCardFromDb();
+    }
   })
   .catch(error => {
     console.error(error);
