@@ -1,53 +1,56 @@
-# Sinatra Book Club App
+# JavaScript Virtual Swap App
 
 
-Users can generate books in order to save and track their reading list.
+Users can create a virtual swap event in order to share preloved items with their friends.
 
-A Sinatra-powered web application created as part of the [Flatiron School's Online Web Developer program](https://flatironschool.com/).
+A web application created as part of the [Flatiron School's Online Web Developer program](https://flatironschool.com/).
 
 
 ## Features 🌟
 
-* Generate books
-* Mark book as read or unread & track on user profile
-* Browse other user profiles
+* Generate a private event to share with friends
+* Generate a user name and items
+* Browse available items, see items taken and by whom
+* Delete owned items, "take" available items
 
 ### Built With 
 
-* Ruby
+* [Rails API backend](https://github.com/agiletkiewicz/virtual-swap-backend)
+* JavaScript frontend
+* Bootstrap CSS framework
+
 
 
 ## Demo 🖥
 
-Manage reading list: add, edit and remove books
 
-![](add-books.gif)
+![](virtual-swap-app.gif)
 
-Create and edit books
-
-![](create-book.gif)
 
 ### Get Started
 
-Visit https://book-club-sinatra-app.herokuapp.com/ to view and use the app.
 
-Or install:
+To install:
 * fork this repository
 * git clone to your local directory
-* cd book-club-sinatra-app
+* cd virtual-swap-frontent
+* open index.html
+
+Fork and clone [Rails API backend](https://github.com/agiletkiewicz/virtual-swap-backend):
+* cd virtual-swap-backend
 * run bundle install
 * run rake db:migrate
-* run shotgun and open in your favorite browser
+* run rails s
 
 
 
 ## Contributors Guide 👋
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/agiletkiewicz/book-club-sinatra-app. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/agiletkiewicz/virtual-swap-frontend. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ### Code of Conduct
 
-Everyone interacting in the Sinatra Book Club App's codebases, issue trackers, chat rooms and mailing lists is expected to follow the code of conduct.
+Everyone interacting in the JavaScript Virtual Swap App's codebases, issue trackers, chat rooms and mailing lists is expected to follow the code of conduct.
 
 ### License
 
