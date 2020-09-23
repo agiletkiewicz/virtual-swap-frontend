@@ -18,6 +18,7 @@ A web application created as part of the [Flatiron School's Online Web Developer
 * [Rails API backend](https://github.com/agiletkiewicz/virtual-swap-backend)
 * JavaScript frontend
 * Bootstrap CSS framework
+* PostgreSQL database
 
 
 
@@ -29,8 +30,12 @@ A web application created as part of the [Flatiron School's Online Web Developer
 
 ### Get Started
 
+Visit demo site: https://elated-knuth-5c0f14.netlify.app/ 
 
-To install:
+Demo account name: Agi's Clothing Swap 
+Demo account pin: 123456
+
+Or install:
 * fork this repository
 * git clone to your local directory
 * cd virtual-swap-frontent
