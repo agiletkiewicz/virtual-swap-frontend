@@ -1,6 +1,6 @@
 class Adapter {
     constructor(path) {
-        this.path = "http://localhost:3000/api/v1" + path
+        this.path = "https://virtual-swap-api.herokuapp.com/api/v1" + path
     }
 
     getRequest() {
