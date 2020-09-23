@@ -32,7 +32,7 @@ A web application created as part of the [Flatiron School's Online Web Developer
 
 Visit demo site: https://elated-knuth-5c0f14.netlify.app/ 
 
-Demo account name: Agi's Clothing Swap 
+Demo account name: Agi's Clothing Swap, 
 Demo account pin: 123456
 
 Or install:
