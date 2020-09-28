@@ -293,7 +293,6 @@ function editTakeFormHandler(event) {
         button.value = "Take";
         button.className = "btn btn-sm btn-outline-secondary";
         Take.deleteById(take_id);
-        console.log(obj);
       })
       .catch(error => console.error(error))
 
