@@ -339,7 +339,7 @@ function renderSortForm() {
   createForm.innerHTML = `
     <div class="form-group">
       <label">Sort items:</label>
-      <select class="form-control" id="users">
+      <select onchange="sortItems()" class="form-control" id="users">
         <option value="none">None</option>
         <option value="availability">Availability</option>
         <option value="user">Users</option>
@@ -350,4 +350,11 @@ function renderSortForm() {
   // createForm.addEventListener("submit", (event) => userSelectFormHandler(event));
 
   document.querySelector("#sort-container").appendChild(createForm);
+}
+
+function sortItems() {
+  const itemContainer = document.querySelector("#item-container");
+  while (itemContainer.firstChild) {
+    itemContainer.removeChild(itemContainer.firstChild);
+  }
 }
