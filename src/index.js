@@ -112,6 +112,8 @@ function renderEvent(event) {
   eventContainer.appendChild(header);
   eventContainer.appendChild(subheader);
 
+  renderSortForm();
+
   for(const element of event.included) {
     if (element.type === "item") {
       const newItem = new ItemFromDb(element.id, element);
@@ -328,4 +330,24 @@ function deleteItemFormHandler(event) {
       console.error(error);
     })
 
+}
+
+function renderSortForm() {
+  const createForm = document.createElement("form");
+  createForm.id = "sort-form";
+  createForm.classList.add("col");
+  createForm.innerHTML = `
+    <div class="form-group">
+      <label">Sort items:</label>
+      <select class="form-control" id="users">
+        <option value="none">None</option>
+        <option value="availability">Availability</option>
+        <option value="user">Users</option>
+      </select>
+    </div>
+  `;
+
+  // createForm.addEventListener("submit", (event) => userSelectFormHandler(event));
+
+  document.querySelector("#sort-container").appendChild(createForm);
 }
