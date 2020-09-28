@@ -357,7 +357,7 @@ function sortItems() {
   while (itemContainer.firstChild) {
     itemContainer.removeChild(itemContainer.firstChild);
   }
-  const sortedItems = Item.all;
+  const sortedItems = Item.all.sort(function(a, b){return a.userId-b.userId});
   for (const element of sortedItems) {
     element.renderItemCard();
   }
