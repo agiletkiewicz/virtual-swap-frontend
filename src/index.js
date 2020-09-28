@@ -357,4 +357,8 @@ function sortItems() {
   while (itemContainer.firstChild) {
     itemContainer.removeChild(itemContainer.firstChild);
   }
+  const sortedItems = Item.all;
+  for (const element of sortedItems) {
+    element.renderItemCard();
+  }
 }
