@@ -352,11 +352,19 @@ function renderSortForm() {
 }
 
 function sortItems() {
+  debugger
+  if (event.target.value === "availability") {
+    renderSortedCards(Item.all)
+  }
+
+}
+
+function renderSortedCards(array) {
   const itemContainer = document.querySelector("#item-container");
   while (itemContainer.firstChild) {
     itemContainer.removeChild(itemContainer.firstChild);
   }
-  const sortedItems = Item.all.sort(function(a, b){return a.userId-b.userId});
+  const sortedItems = array.sort(function(a, b){return a.userId-b.userId});
   for (const element of sortedItems) {
     element.renderItemCard();
   }
