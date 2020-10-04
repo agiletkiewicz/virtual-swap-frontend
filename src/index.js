@@ -68,6 +68,7 @@ function createEventFormHandler(event) {
 
 function createEventFetch(name, rules, pin) {
   const bodyData = {name, rules, pin}
+  debugger
 
   new Adapter('/events').postRequest(bodyData)
   .then(event => {
