@@ -353,12 +353,29 @@ function renderSortForm() {
 }
 
 function sortItems() {
+  if (event.target.value === "availability") {
+    const takes = Take.all.map( take => take.userId );
+    const sortingArray = []
+    for (const element of Item.all) {
+      if (takes.includes(element.id)) {
+        sortingArray.push(element);
+      } else {
+        sortingArray.unshift(element);
+      }
+    }
+    debugger
+    renderSortedCards(sortingArray);
+  }
+
+}
+
+function renderSortedCards(array) {
   const itemContainer = document.querySelector("#item-container");
   while (itemContainer.firstChild) {
     itemContainer.removeChild(itemContainer.firstChild);
   }
-  const sortedItems = Item.all.sort(function(a, b){return a.userId-b.userId});
-  for (const element of sortedItems) {
+  // const sortedItems = array.sort(function(a, b){return a.userId-b.userId});
+  for (const element of array) {
     element.renderItemCard();
   }
 }
