@@ -120,7 +120,7 @@ class ItemFromForm extends Item {
         this.userId = parseInt(data.user_id)
     }
 
-    renderItemCardFromDb() {  
+    renderItemCardFromForm() {  
         const cardDiv = document.createElement('div');
         cardDiv.id = "card-div";
         cardDiv.dataset.id = this.id;

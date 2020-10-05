@@ -268,7 +268,7 @@ function createItemFetch(title, size, notes, image_url) {
     } else {
     const item = new ItemFromForm(event.id, event);
     document.querySelector("#create-item-form").reset();
-    item.renderItemCardFromDb();
+    item.renderItemCardFromForm();
     }
   })
   .catch(error => {
