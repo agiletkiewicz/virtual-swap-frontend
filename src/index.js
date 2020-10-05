@@ -288,7 +288,7 @@ function editTakeFormHandler(event) {
     const take_id = parseInt(event.target.querySelector("#take-id").value);
 
       new Adapter(`/takes/${take_id}`).deleteRequest()
-      .then((obj) => {
+      .then(() => {
         const button = event.target.querySelector("#take-button"); 
         button.value = "Take";
         button.className = "btn btn-sm btn-outline-secondary";
@@ -329,24 +329,6 @@ function deleteItemFormHandler(event) {
 
 }
 
-function sortItems() {
-  const itemContainer = document.querySelector("#item-container");
-  while (itemContainer.firstChild) {
-    itemContainer.removeChild(itemContainer.firstChild);
-  }
-  const sorted = Item.all.sort(compare);
-  for (const element of sorted) {
-    element.renderItemCard();
-  }
-}
-
-function compare(a,b) {
-  if (a.title < b.title)
-     return -1;
-  if (a.title > b.title)
-    return 1;
-  return 0;
-}
 
 
 
