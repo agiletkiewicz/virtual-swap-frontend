@@ -66,8 +66,8 @@ function createEventFormHandler(event) {
   createEventFetch(nameInput, rulesInput, pinInput);
 }
 
-function createEventFetch(name, rules, pin) {
-  const bodyData = {name, rules, pin}
+function createEventFetch(name, rules, password) {
+  const bodyData = {event: {name, rules, password}}
 
   new Adapter('/events').postRequest(bodyData)
   .then(event => {
@@ -172,7 +172,7 @@ function userCreateFormHandler(event) {
 }
 
 function createUserFetch(name) {
-  const bodyData = {name, event_id: currentEventId}
+  const bodyData = {user: {name, event_id: currentEventId}}
 
   new Adapter(`/users`).postRequest(bodyData)
   .then(event => {
@@ -253,7 +253,7 @@ function createItemFormHandler(event) {
 }
 
 function createItemFetch(title, size, notes, image_url) {
-  const bodyData = {title, size, notes, image_url, user_id: User._current.id}
+  const bodyData = {item: {title, size, notes, image_url, user_id: User._current.id}}
 
   new Adapter(`/items`).postRequest(bodyData)
   .then(event => {
@@ -282,7 +282,7 @@ function editTakeFormHandler(event) {
   const item_id = parseInt(event.target.querySelector("#item-id").value);
   const user_id = parseInt(event.target.querySelector("#user-id").value);
 
-  const bodyData = {item_id, user_id}
+  const bodyData = {take: {item_id, user_id}}
   
   if (event.target.querySelector("#take-button").value === "Taken!") {
     const take_id = parseInt(event.target.querySelector("#take-id").value);
