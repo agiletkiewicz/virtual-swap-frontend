@@ -35,8 +35,8 @@ function viewEventFormHandler(event) {
   accessEvent(eventId, eventPin);
 }
 
-function accessEvent(id, pin) {
-  const bodyData = {id, pin}
+function accessEvent(id, password) {
+  const bodyData = {id, password}
 
   new Adapter(`/login`).postRequest(bodyData)
   .then(event => {
