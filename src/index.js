@@ -114,8 +114,7 @@ function renderEvent(event) {
 
   for(const element of event.included) {
     if (element.type === "item") {
-      const newItem = new ItemFromDb(element.id, element);
-      newItem.renderItemCard();
+      new ItemFromDb(element.id, element);
     } else if (element.type === "user") {
       const newUser = new User(element);
       let newOption = new Option(newUser.name, newUser.id);
@@ -124,6 +123,8 @@ function renderEvent(event) {
       new Take(element.id, element.attributes);
     }
   }
+
+  renderSortedItems();
 }
 
 
@@ -328,6 +329,23 @@ function deleteItemFormHandler(event) {
     })
 
 }
+
+function renderSortedItems() {
+  const sortedItems = Item.all.sort(compare);
+  for (const element of sortedItems) {
+    element.renderItemCard();
+  }
+}
+ 
+function compare(a, b) {
+  if (a.size < b. size) {
+    return -1;
+  }
+  if (a.size > b.size) {
+    return 1;
+  }
+  return 0;
+} 
 
 
 
