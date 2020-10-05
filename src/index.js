@@ -68,7 +68,6 @@ function createEventFormHandler(event) {
 
 function createEventFetch(name, rules, pin) {
   const bodyData = {name, rules, pin}
-  debugger
 
   new Adapter('/events').postRequest(bodyData)
   .then(event => {
@@ -112,8 +111,6 @@ function renderEvent(event) {
   document.getElementById('view-event-form').style.display = 'none';
   eventContainer.appendChild(header);
   eventContainer.appendChild(subheader);
-
-  renderSortForm();
 
   for(const element of event.included) {
     if (element.type === "item") {
@@ -332,50 +329,6 @@ function deleteItemFormHandler(event) {
 
 }
 
-function renderSortForm() {
-  const createForm = document.createElement("form");
-  createForm.id = "sort-form";
-  createForm.classList.add("col");
-  createForm.innerHTML = `
-    <div class="form-group">
-      <label">Sort items:</label>
-      <select onchange="sortItems()" class="form-control" id="users">
-        <option value="none">None</option>
-        <option value="availability">Availability</option>
-        <option value="user">Users</option>
-      </select>
-    </div>
-  `;
 
-  // createForm.addEventListener("submit", (event) => userSelectFormHandler(event));
 
-  document.querySelector("#sort-container").appendChild(createForm);
-}
 
-function sortItems() {
-  if (event.target.value === "availability") {
-    const takes = Take.all.map( take => take.userId );
-    const sortingArray = []
-    for (const element of Item.all) {
-      if (takes.includes(element.id)) {
-        sortingArray.push(element);
-      } else {
-        sortingArray.unshift(element);
-      }
-    }
-    debugger
-    renderSortedCards(sortingArray);
-  }
-
-}
-
-function renderSortedCards(array) {
-  const itemContainer = document.querySelector("#item-container");
-  while (itemContainer.firstChild) {
-    itemContainer.removeChild(itemContainer.firstChild);
-  }
-  // const sortedItems = array.sort(function(a, b){return a.userId-b.userId});
-  for (const element of array) {
-    element.renderItemCard();
-  }
-}
