@@ -22,7 +22,7 @@ function fetchEvents() {
 
 function addEventsToForm(allEvents) {
   for (const event of allEvents.data) {
-    const eventOptions = document.getElementById("events")
+    const eventOptions = document.getElementById("events");
     let newOption = new Option(event.attributes.name, event.id);
     eventOptions.add(newOption,undefined);
   } 
@@ -327,6 +327,25 @@ function deleteItemFormHandler(event) {
       console.error(error);
     })
 
+}
+
+function sortItems() {
+  const itemContainer = document.querySelector("#item-container");
+  while (itemContainer.firstChild) {
+    itemContainer.removeChild(itemContainer.firstChild);
+  }
+  const sorted = Item.all.sort(compare);
+  for (const element of sorted) {
+    element.renderItemCard();
+  }
+}
+
+function compare(a,b) {
+  if (a.title < b.title)
+     return -1;
+  if (a.title > b.title)
+    return 1;
+  return 0;
 }
 
 
