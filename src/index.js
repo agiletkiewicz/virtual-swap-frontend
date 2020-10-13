@@ -338,10 +338,10 @@ function renderSortedItems() {
 }
  
 function compare(a, b) {
-  if (a.size < b. size) {
+  if (a.userId < b.userId) {
     return -1;
   }
-  if (a.size > b.size) {
+  if (a.userId > b.userId) {
     return 1;
   }
   return 0;
